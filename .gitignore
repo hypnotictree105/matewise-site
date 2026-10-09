@@ -1,0 +1,10 @@
+node_modules/
+dist/
+__pycache__/
+.env
+*.tar.gz
+
+.env.*
+!.env.example
+
+.wrangler/

@@ -1,0 +1,3618 @@
+{
+  "_README": "Each family DECLARES how it mates and what accessories it needs. Adding a new family = adding data here, never editing match.py. verification: verified = checked against a datasheet, inferred = guess, unknown = placeholder.",
+  "families": {
+    "DT": {
+      "description": "Deutsch DT - standard duty, sealed",
+      "match_on": [
+        "family",
+        "cavities"
+      ],
+      "awg_range": [
+        14,
+        20
+      ],
+      "contact_size": 16,
+      "amps": 13,
+      "accessories": [
+        "wedgelock",
+        "contacts",
+        "sealing_plugs"
+      ],
+      "verification": "inferred",
+      "terminations": [
+        "crimp"
+      ],
+      "mounts": [
+        "inline",
+        "flange"
+      ]
+    },
+    "DTM": {
+      "description": "Deutsch DTM - miniature, low current signal",
+      "match_on": [
+        "family",
+        "cavities"
+      ],
+      "awg_range": [
+        20,
+        24
+      ],
+      "contact_size": 20,
+      "amps": 7.5,
+      "accessories": [
+        "wedgelock",
+        "contacts",
+        "sealing_plugs"
+      ],
+      "verification": "inferred",
+      "terminations": [
+        "crimp"
+      ],
+      "mounts": [
+        "inline",
+        "flange"
+      ]
+    },
+    "DTP": {
+      "description": "Deutsch DTP - power, high current",
+      "match_on": [
+        "family",
+        "cavities"
+      ],
+      "awg_range": [
+        12,
+        14
+      ],
+      "contact_size": 12,
+      "amps": 25,
+      "accessories": [
+        "wedgelock",
+        "contacts",
+        "sealing_plugs"
+      ],
+      "verification": "inferred",
+      "terminations": [
+        "crimp"
+      ],
+      "mounts": [
+        "inline",
+        "flange"
+      ]
+    },
+    "M12": {
+      "description": "M12 circular - industrial automation. Mates on CODING + POLES, not cavity count. Cordsets ship pre-terminated so no loose contacts or wedgelocks.",
+      "match_on": [
+        "family",
+        "coding",
+        "poles"
+      ],
+      "awg_range": [
+        18,
+        26
+      ],
+      "accessories": [],
+      "verification": "inferred",
+      "terminations": [
+        "pre-terminated",
+        "field-wireable"
+      ],
+      "mounts": [
+        "inline",
+        "panel"
+      ]
+    },
+    "D38999": {
+      "description": "MIL-DTL-38999 - aerospace/defense. Mates on SHELL SIZE + INSERT ARRANGEMENT + KEYING POSITION. Keying is the one people miss - same shell, wrong key, will not mate.",
+      "match_on": [
+        "family",
+        "series",
+        "shell_size",
+        "insert_arrangement",
+        "keying"
+      ],
+      "awg_range": [
+        12,
+        26
+      ],
+      "accessories": [
+        "contacts",
+        "backshell",
+        "sealing_plugs"
+      ],
+      "verification": "unknown",
+      "terminations": [
+        "crimp",
+        "solder"
+      ],
+      "mounts": [
+        "inline",
+        "panel",
+        "jam-nut"
+      ]
+    }
+  },
+  "housings": {
+    "DT04-4P": {
+      "family": "DT",
+      "cavities": 4,
+      "role": "receptacle",
+      "gender": "pin",
+      "wedgelock": "W4P",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 4
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DT06-4S": {
+      "family": "DT",
+      "cavities": 4,
+      "role": "plug",
+      "gender": "socket",
+      "wedgelock": "W4S",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 4
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DT04-2P": {
+      "family": "DT",
+      "cavities": 2,
+      "role": "receptacle",
+      "gender": "pin",
+      "wedgelock": "W2P",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 2
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DT06-2S": {
+      "family": "DT",
+      "cavities": 2,
+      "role": "plug",
+      "gender": "socket",
+      "wedgelock": "W2S",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 2
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DT04-12P": {
+      "family": "DT",
+      "cavities": 12,
+      "role": "receptacle",
+      "gender": "pin",
+      "wedgelock": "W12P",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 12
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DT06-12S": {
+      "family": "DT",
+      "cavities": 12,
+      "role": "plug",
+      "gender": "socket",
+      "wedgelock": "W12S",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 12
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DTM04-4P": {
+      "family": "DTM",
+      "cavities": 4,
+      "role": "receptacle",
+      "gender": "pin",
+      "wedgelock": "WM-4P",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 4
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DTM06-4S": {
+      "family": "DTM",
+      "cavities": 4,
+      "role": "plug",
+      "gender": "socket",
+      "wedgelock": "WM-4S",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 4
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DTP04-2P": {
+      "family": "DTP",
+      "cavities": 2,
+      "role": "receptacle",
+      "gender": "pin",
+      "wedgelock": "WP-2P",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 2
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DTP06-2S": {
+      "family": "DTP",
+      "cavities": 2,
+      "role": "plug",
+      "gender": "socket",
+      "wedgelock": "WP-2S",
+      "verification": "verified",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 2
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "M12-A4-MALE": {
+      "family": "M12",
+      "coding": "A",
+      "poles": 4,
+      "role": "plug",
+      "gender": "pin",
+      "note": "A-coded 4-pin sensor - the industrial default",
+      "verification": "inferred",
+      "mount": "inline",
+      "termination": "pre-terminated"
+    },
+    "M12-A4-FEMALE": {
+      "family": "M12",
+      "coding": "A",
+      "poles": 4,
+      "role": "socket",
+      "gender": "socket",
+      "note": "mates to A-coded 4-pin sensors",
+      "verification": "inferred",
+      "mount": "inline",
+      "termination": "pre-terminated"
+    },
+    "M12-D4-MALE": {
+      "family": "M12",
+      "coding": "D",
+      "poles": 4,
+      "role": "plug",
+      "gender": "pin",
+      "note": "D-coded = 100Mbit PROFINET/EtherNet-IP",
+      "verification": "inferred",
+      "mount": "inline",
+      "termination": "pre-terminated"
+    },
+    "M12-D4-FEMALE": {
+      "family": "M12",
+      "coding": "D",
+      "poles": 4,
+      "role": "socket",
+      "gender": "socket",
+      "note": "D-coded 100Mbit",
+      "verification": "inferred",
+      "mount": "inline",
+      "termination": "pre-terminated"
+    },
+    "M12-X8-MALE": {
+      "family": "M12",
+      "coding": "X",
+      "poles": 8,
+      "role": "plug",
+      "gender": "pin",
+      "note": "X-coded = gigabit ethernet",
+      "verification": "inferred",
+      "mount": "inline",
+      "termination": "pre-terminated"
+    },
+    "M12-X8-FEMALE": {
+      "family": "M12",
+      "coding": "X",
+      "poles": 8,
+      "role": "socket",
+      "gender": "socket",
+      "note": "X-coded gigabit",
+      "verification": "inferred",
+      "mount": "inline",
+      "termination": "pre-terminated"
+    },
+    "DT04-6P": {
+      "family": "DT",
+      "cavities": 6,
+      "role": "receptacle",
+      "gender": "pin",
+      "wedgelock": "W6P",
+      "mount": "inline",
+      "termination": "crimp",
+      "verification": "verified",
+      "cavity_profile": {
+        "16": 6
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DT06-6S": {
+      "family": "DT",
+      "cavities": 6,
+      "role": "plug",
+      "gender": "socket",
+      "wedgelock": "W6S",
+      "mount": "inline",
+      "termination": "crimp",
+      "verification": "verified",
+      "cavity_profile": {
+        "16": 6
+      },
+      "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+    },
+    "DT04-8P": {
+      "family": "DT",
+      "cavities": 8,
+      "role": "receptacle",
+      "gender": "pin",
+      "wedgelock": "W8P",
+      "mount": "inline",
+      "termination": "crimp",
+      "verification": "inferred",
+      "cavity_profile": {
+        "16": 8
+      }
+    },
+    "DT06-8S": {
+      "family": "DT",
+      "cavities": 8,
+      "role": "plug",
+      "gender": "socket",
+      "wedgelock": "W8S",
+      "mount": "inline",
+      "termination": "crimp",
+      "verification": "inferred",
+      "cavity_profile": {
+        "16": 8
+      }
+    },
+    "DT04-12PA-FLANGE": {
+      "family": "DT",
+      "cavities": 12,
+      "role": "receptacle",
+      "gender": "pin",
+      "wedgelock": "W12P",
+      "mount": "flange",
+      "termination": "crimp",
+      "verification": "inferred",
+      "cavity_profile": {
+        "16": 12
+      }
+    },
+    "D38999/26WA35PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "A",
+      "insert_arrangement": "A35",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 6
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WA35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "A",
+      "insert_arrangement": "A35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 6
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WA35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "A",
+      "insert_arrangement": "A35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 6
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WA98PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "A",
+      "insert_arrangement": "A98",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 3
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WA98SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "A",
+      "insert_arrangement": "A98",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 3
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WA98SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "A",
+      "insert_arrangement": "A98",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 3
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WB2PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "B",
+      "insert_arrangement": "B2",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WB2SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "B",
+      "insert_arrangement": "B2",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WB2SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "B",
+      "insert_arrangement": "B2",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WB4PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "B",
+      "insert_arrangement": "B4",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 4
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WB4SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "B",
+      "insert_arrangement": "B4",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 4
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WB4SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "B",
+      "insert_arrangement": "B4",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 4
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WB5PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "B",
+      "insert_arrangement": "B5",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 5
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WB5SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "B",
+      "insert_arrangement": "B5",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 5
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WB5SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "B",
+      "insert_arrangement": "B5",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 5
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WB35PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "B",
+      "insert_arrangement": "B35",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 13
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WB35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "B",
+      "insert_arrangement": "B35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 13
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WB35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "B",
+      "insert_arrangement": "B35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 13
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WB98PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "B",
+      "insert_arrangement": "B98",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 6
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WB98SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "B",
+      "insert_arrangement": "B98",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 6
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WB98SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "B",
+      "insert_arrangement": "B98",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 6
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WB99PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "B",
+      "insert_arrangement": "B99",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 7
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WB99SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "B",
+      "insert_arrangement": "B99",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 7
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WB99SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "B",
+      "insert_arrangement": "B99",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 7
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WC4PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "C",
+      "insert_arrangement": "C4",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 4
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WC4SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "C",
+      "insert_arrangement": "C4",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 4
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WC4SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "C",
+      "insert_arrangement": "C4",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 4
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WC8PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "C",
+      "insert_arrangement": "C8",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 8
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WC8SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "C",
+      "insert_arrangement": "C8",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 8
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WC8SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "C",
+      "insert_arrangement": "C8",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 8
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WC35PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "C",
+      "insert_arrangement": "C35",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 22
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WC35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "C",
+      "insert_arrangement": "C35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 22
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WC35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "C",
+      "insert_arrangement": "C35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 22
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WC98PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "C",
+      "insert_arrangement": "C98",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 10
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WC98SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "C",
+      "insert_arrangement": "C98",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 10
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WC98SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "C",
+      "insert_arrangement": "C98",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 10
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WD5PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "D",
+      "insert_arrangement": "D5",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 5
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WD5SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "D",
+      "insert_arrangement": "D5",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 5
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WD5SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "D",
+      "insert_arrangement": "D5",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 5
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WD15PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "D",
+      "insert_arrangement": "D15",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 14,
+        "16": 1
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WD15SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "D",
+      "insert_arrangement": "D15",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 14,
+        "16": 1
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WD15SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "D",
+      "insert_arrangement": "D15",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 14,
+        "16": 1
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WD18PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "D",
+      "insert_arrangement": "D18",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 18
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WD18SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "D",
+      "insert_arrangement": "D18",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 18
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WD18SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "D",
+      "insert_arrangement": "D18",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 18
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WD19PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "D",
+      "insert_arrangement": "D19",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 19
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WD19SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "D",
+      "insert_arrangement": "D19",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 19
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WD19SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "D",
+      "insert_arrangement": "D19",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 19
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WD35PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "D",
+      "insert_arrangement": "D35",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 37
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WD35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "D",
+      "insert_arrangement": "D35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 37
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WD35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "D",
+      "insert_arrangement": "D35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 37
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WD97PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "D",
+      "insert_arrangement": "D97",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 8,
+        "16": 4
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WD97SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "D",
+      "insert_arrangement": "D97",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 8,
+        "16": 4
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WD97SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "D",
+      "insert_arrangement": "D97",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 8,
+        "16": 4
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WE6PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "E",
+      "insert_arrangement": "E6",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 6
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WE6SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "E",
+      "insert_arrangement": "E6",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 6
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WE6SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "E",
+      "insert_arrangement": "E6",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 6
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WE8PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "E",
+      "insert_arrangement": "E8",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 8
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WE8SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "E",
+      "insert_arrangement": "E8",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 8
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WE8SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "E",
+      "insert_arrangement": "E8",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 8
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WE26PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "E",
+      "insert_arrangement": "E26",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 26
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WE26SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "E",
+      "insert_arrangement": "E26",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 26
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WE26SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "E",
+      "insert_arrangement": "E26",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 26
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WE35PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "E",
+      "insert_arrangement": "E35",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 55
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WE35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "E",
+      "insert_arrangement": "E35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 55
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WE35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "E",
+      "insert_arrangement": "E35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 55
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WE99PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "E",
+      "insert_arrangement": "E99",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 21,
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WE99SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "E",
+      "insert_arrangement": "E99",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 21,
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WE99SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "E",
+      "insert_arrangement": "E99",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 21,
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WF11PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "F",
+      "insert_arrangement": "F11",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 11
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WF11SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "F",
+      "insert_arrangement": "F11",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 11
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WF11SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "F",
+      "insert_arrangement": "F11",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 11
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WF28PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "F",
+      "insert_arrangement": "F28",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 26,
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WF28SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "F",
+      "insert_arrangement": "F28",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 26,
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WF28SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "F",
+      "insert_arrangement": "F28",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 26,
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WF30PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "F",
+      "insert_arrangement": "F30",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 29,
+        "16": 1
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WF30SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "F",
+      "insert_arrangement": "F30",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 29,
+        "16": 1
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WF30SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "F",
+      "insert_arrangement": "F30",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 29,
+        "16": 1
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WF32PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "F",
+      "insert_arrangement": "F32",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 32
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WF32SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "F",
+      "insert_arrangement": "F32",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 32
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WF32SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "F",
+      "insert_arrangement": "F32",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 32
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WF35PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "F",
+      "insert_arrangement": "F35",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 66
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WF35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "F",
+      "insert_arrangement": "F35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 66
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WF35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "F",
+      "insert_arrangement": "F35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 66
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WF45PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "F",
+      "insert_arrangement": "F45",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 67
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WF45SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "F",
+      "insert_arrangement": "F45",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 67
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WF45SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "F",
+      "insert_arrangement": "F45",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 67
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WG11PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "G",
+      "insert_arrangement": "G11",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 11
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WG11SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "G",
+      "insert_arrangement": "G11",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 11
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WG11SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "G",
+      "insert_arrangement": "G11",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 11
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WG16PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "G",
+      "insert_arrangement": "G16",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 16
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WG16SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "G",
+      "insert_arrangement": "G16",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 16
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WG16SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "G",
+      "insert_arrangement": "G16",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 16
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WG24PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "G",
+      "insert_arrangement": "G24",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 24
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WG24SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "G",
+      "insert_arrangement": "G24",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 24
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WG24SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "G",
+      "insert_arrangement": "G24",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 24
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WG25PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "G",
+      "insert_arrangement": "G25",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 25
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WG25SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "G",
+      "insert_arrangement": "G25",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 25
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WG25SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "G",
+      "insert_arrangement": "G25",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 25
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WG27PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "G",
+      "insert_arrangement": "G27",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 27
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WG27SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "G",
+      "insert_arrangement": "G27",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 27
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WG27SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "G",
+      "insert_arrangement": "G27",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 27
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WG35PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "G",
+      "insert_arrangement": "G35",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 79
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WG35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "G",
+      "insert_arrangement": "G35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 79
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WG35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "G",
+      "insert_arrangement": "G35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 79
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WG39PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "G",
+      "insert_arrangement": "G39",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 37,
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WG39SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "G",
+      "insert_arrangement": "G39",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 37,
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WG39SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "G",
+      "insert_arrangement": "G39",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 37,
+        "16": 2
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WG41PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "G",
+      "insert_arrangement": "G41",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 41
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WG41SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "G",
+      "insert_arrangement": "G41",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 41
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WG41SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "G",
+      "insert_arrangement": "G41",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 41
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WH21PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "H",
+      "insert_arrangement": "H21",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 21
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WH21SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "H",
+      "insert_arrangement": "H21",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 21
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WH21SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "H",
+      "insert_arrangement": "H21",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 21
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WH32PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "H",
+      "insert_arrangement": "H32",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 32
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WH32SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "H",
+      "insert_arrangement": "H32",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 32
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WH32SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "H",
+      "insert_arrangement": "H32",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 32
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WH34PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "H",
+      "insert_arrangement": "H34",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 34
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WH34SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "H",
+      "insert_arrangement": "H34",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 34
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WH34SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "H",
+      "insert_arrangement": "H34",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 34
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WH35PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "H",
+      "insert_arrangement": "H35",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 100
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WH35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "H",
+      "insert_arrangement": "H35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 100
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WH35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "H",
+      "insert_arrangement": "H35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 100
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WH36PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "H",
+      "insert_arrangement": "H36",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 36
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WH36SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "H",
+      "insert_arrangement": "H36",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 36
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WH36SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "H",
+      "insert_arrangement": "H36",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 36
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WH53PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "H",
+      "insert_arrangement": "H53",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 53
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WH53SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "H",
+      "insert_arrangement": "H53",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 53
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WH53SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "H",
+      "insert_arrangement": "H53",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 53
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WH55PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "H",
+      "insert_arrangement": "H55",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 55
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WH55SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "H",
+      "insert_arrangement": "H55",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 55
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WH55SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "H",
+      "insert_arrangement": "H55",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 55
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WH97PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "H",
+      "insert_arrangement": "H97",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 16
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WH97SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "H",
+      "insert_arrangement": "H97",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 16
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WH97SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "H",
+      "insert_arrangement": "H97",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 16
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WH99PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "H",
+      "insert_arrangement": "H99",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 11
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WH99SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "H",
+      "insert_arrangement": "H99",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 11
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WH99SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "H",
+      "insert_arrangement": "H99",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 11
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WJ4PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "J",
+      "insert_arrangement": "J4",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 48,
+        "16": 8
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WJ4SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "J",
+      "insert_arrangement": "J4",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 48,
+        "16": 8
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WJ4SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "J",
+      "insert_arrangement": "J4",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 48,
+        "16": 8
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WJ19PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "J",
+      "insert_arrangement": "J19",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 19
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WJ19SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "J",
+      "insert_arrangement": "J19",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 19
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WJ19SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "J",
+      "insert_arrangement": "J19",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "12": 19
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WJ24PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "J",
+      "insert_arrangement": "J24",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 12,
+        "12": 12
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WJ24SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "J",
+      "insert_arrangement": "J24",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 12,
+        "12": 12
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WJ24SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "J",
+      "insert_arrangement": "J24",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 12,
+        "12": 12
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WJ29PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "J",
+      "insert_arrangement": "J29",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 29
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WJ29SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "J",
+      "insert_arrangement": "J29",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 29
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WJ29SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "J",
+      "insert_arrangement": "J29",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "16": 29
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WJ35PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "J",
+      "insert_arrangement": "J35",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 128
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WJ35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "J",
+      "insert_arrangement": "J35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 128
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WJ35SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "J",
+      "insert_arrangement": "J35",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "22D": 128
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WJ43PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "J",
+      "insert_arrangement": "J43",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 23,
+        "16": 20
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WJ43SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "J",
+      "insert_arrangement": "J43",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 23,
+        "16": 20
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WJ43SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "J",
+      "insert_arrangement": "J43",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 23,
+        "16": 20
+      },
+      "verification": "inferred"
+    },
+    "D38999/26WJ61PN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "26",
+      "shell_size": "J",
+      "insert_arrangement": "J61",
+      "keying": "N",
+      "role": "plug",
+      "gender": "pin",
+      "mount": "inline",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 61
+      },
+      "verification": "inferred"
+    },
+    "D38999/24WJ61SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "24",
+      "shell_size": "J",
+      "insert_arrangement": "J61",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "jam-nut",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 61
+      },
+      "verification": "inferred"
+    },
+    "D38999/20WJ61SN": {
+      "family": "D38999",
+      "series": "III",
+      "shell_type": "20",
+      "shell_size": "J",
+      "insert_arrangement": "J61",
+      "keying": "N",
+      "role": "receptacle",
+      "gender": "socket",
+      "mount": "flange",
+      "termination": "crimp",
+      "cavity_profile": {
+        "20": 61
+      },
+      "verification": "inferred"
+    }
+  },
+  "contacts": {
+    "DT": {
+      "pin": {
+        "pn": "0460-202-16**",
+        "awg_range": [
+          16,
+          20
+        ],
+        "verification": "verified",
+        "note": "** = plating: 31 gold, 141 nickel",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      },
+      "socket": {
+        "pn": "0462-201-16**",
+        "awg_range": [
+          16,
+          20
+        ],
+        "verification": "verified",
+        "note": "** = plating: 31 gold, 141 nickel",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      }
+    },
+    "DTM": {
+      "pin": {
+        "pn": "0460-202-20**",
+        "awg_range": [
+          20,
+          20
+        ],
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      },
+      "socket": {
+        "pn": "0462-201-20**",
+        "awg_range": [
+          20,
+          20
+        ],
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      }
+    },
+    "DTP": {
+      "pin": {
+        "pn": "0460-204-12**",
+        "awg_range": [
+          12,
+          14
+        ],
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      },
+      "socket": {
+        "pn": "0462-203-12**",
+        "awg_range": [
+          12,
+          14
+        ],
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      }
+    }
+  },
+  "sealing_plugs": {
+    "DT": {
+      "pn": "0413-204-1605",
+      "verification": "inferred"
+    },
+    "DTM": {
+      "pn": "0413-204-2005",
+      "verification": "inferred"
+    },
+    "DTP": {
+      "pn": "0413-204-1205",
+      "verification": "inferred"
+    }
+  },
+  "accessories_catalog": {
+    "DT": [
+      {
+        "type": "backshell",
+        "pn": "1011-237-0405",
+        "desc": "straight backshell, DT04-4P (receptacle)",
+        "fits": [
+          "DT04-4P"
+        ],
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      },
+      {
+        "type": "backshell",
+        "pn": "1011-238-0405",
+        "desc": "right-angle backshell, DT04-4P (receptacle)",
+        "fits": [
+          "DT04-4P"
+        ],
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      },
+      {
+        "type": "backshell",
+        "pn": "1011-235-0405",
+        "desc": "straight backshell, DT06-4S (plug)",
+        "fits": [
+          "DT06-4S"
+        ],
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      },
+      {
+        "type": "backshell",
+        "pn": "1011-236-0405",
+        "desc": "right-angle backshell, DT06-4S (plug)",
+        "fits": [
+          "DT06-4S"
+        ],
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      },
+      {
+        "type": "tool",
+        "pn": "HDT-48-00",
+        "desc": "universal crimp tool, DT/DTM/DTP sizes 12/16/20",
+        "fits": "any",
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      },
+      {
+        "type": "tool",
+        "pn": "0411-336-1605",
+        "desc": "extraction tool, size 16/18 contacts",
+        "fits": "any",
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      },
+      {
+        "type": "tool",
+        "pn": "0411-240-2005",
+        "desc": "extraction tool, size 20/22 contacts",
+        "fits": "any",
+        "verification": "verified",
+        "source": "TE/Dalroad DEUTSCH Connector Product Guide (dalroad.com, Aug 2017), verified against actual table"
+      }
+    ],
+    "DTM": [
+      {
+        "type": "tool",
+        "pn": "HDT-48-00",
+        "desc": "crimp tool, size 20 contacts",
+        "fits_cavities": "any",
+        "verification": "inferred"
+      }
+    ]
+  },
+  "contact_sizes": {
+    "12": {
+      "awg_range": [
+        12,
+        14
+      ],
+      "verification": "verified"
+    },
+    "16": {
+      "awg_range": [
+        16,
+        20
+      ],
+      "verification": "verified"
+    },
+    "20": {
+      "awg_range": [
+        20,
+        24
+      ],
+      "verification": "verified"
+    },
+    "22D": {
+      "awg_range": [
+        22,
+        28
+      ],
+      "verification": "verified"
+    }
+  },
+  "insert_arrangements": {
+    "A35": {
+      "profile": {
+        "22D": 6
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "A98": {
+      "profile": {
+        "20": 3
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "B2": {
+      "profile": {
+        "16": 2
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "B4": {
+      "profile": {
+        "20": 4
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "B5": {
+      "profile": {
+        "20": 5
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "B35": {
+      "profile": {
+        "22D": 13
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "B98": {
+      "profile": {
+        "20": 6
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "B99": {
+      "profile": {
+        "20": 7
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "C4": {
+      "profile": {
+        "16": 4
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "C8": {
+      "profile": {
+        "20": 8
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "C35": {
+      "profile": {
+        "22D": 22
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "C98": {
+      "profile": {
+        "20": 10
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "D5": {
+      "profile": {
+        "16": 5
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "D15": {
+      "profile": {
+        "20": 14,
+        "16": 1
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "D18": {
+      "profile": {
+        "20": 18
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "D19": {
+      "profile": {
+        "20": 19
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "D35": {
+      "profile": {
+        "22D": 37
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "D97": {
+      "profile": {
+        "20": 8,
+        "16": 4
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "E6": {
+      "profile": {
+        "12": 6
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "E8": {
+      "profile": {
+        "16": 8
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "E26": {
+      "profile": {
+        "20": 26
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "E35": {
+      "profile": {
+        "22D": 55
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "E99": {
+      "profile": {
+        "20": 21,
+        "16": 2
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "F11": {
+      "profile": {
+        "16": 11
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "F28": {
+      "profile": {
+        "20": 26,
+        "16": 2
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "F30": {
+      "profile": {
+        "20": 29,
+        "16": 1
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "F32": {
+      "profile": {
+        "20": 32
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "F35": {
+      "profile": {
+        "22D": 66
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "F45": {
+      "profile": {
+        "22D": 67
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "G11": {
+      "profile": {
+        "12": 11
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "G16": {
+      "profile": {
+        "16": 16
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "G24": {
+      "profile": {
+        "20": 24
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "G25": {
+      "profile": {
+        "20": 25
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "G27": {
+      "profile": {
+        "20": 27
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "G35": {
+      "profile": {
+        "22D": 79
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "G39": {
+      "profile": {
+        "20": 37,
+        "16": 2
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "G41": {
+      "profile": {
+        "20": 41
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "H21": {
+      "profile": {
+        "16": 21
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "H32": {
+      "profile": {
+        "20": 32
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "H34": {
+      "profile": {
+        "20": 34
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "H35": {
+      "profile": {
+        "22D": 100
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "H36": {
+      "profile": {
+        "20": 36
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "H53": {
+      "profile": {
+        "20": 53
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "H55": {
+      "profile": {
+        "20": 55
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "H97": {
+      "profile": {
+        "16": 16
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "H99": {
+      "profile": {
+        "16": 11
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "J4": {
+      "profile": {
+        "20": 48,
+        "16": 8
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "J19": {
+      "profile": {
+        "12": 19
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "J24": {
+      "profile": {
+        "16": 12,
+        "12": 12
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "J29": {
+      "profile": {
+        "16": 29
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "J35": {
+      "profile": {
+        "22D": 128
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "J43": {
+      "profile": {
+        "20": 23,
+        "16": 20
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "J61": {
+      "profile": {
+        "20": 61
+      },
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    }
+  },
+  "shell_types": {
+    "20": {
+      "desc": "Receptacle, Wall Mount Flange",
+      "role": "receptacle",
+      "mount": "flange",
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "21": {
+      "desc": "Receptacle, Box Mount, Hermetic",
+      "role": "receptacle",
+      "mount": "box",
+      "hermetic": true,
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "23": {
+      "desc": "Receptacle, Jam Nut, Hermetic",
+      "role": "receptacle",
+      "mount": "jam-nut",
+      "hermetic": true,
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "24": {
+      "desc": "Receptacle, Jam Nut Mount",
+      "role": "receptacle",
+      "mount": "jam-nut",
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "25": {
+      "desc": "Receptacle, Solder Mount, Hermetic",
+      "role": "receptacle",
+      "mount": "solder",
+      "hermetic": true,
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "26": {
+      "desc": "Plug, EMI Grounding Fingers",
+      "role": "plug",
+      "mount": "inline",
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    },
+    "27": {
+      "desc": "Receptacle, Weld Mount, Hermetic",
+      "role": "receptacle",
+      "mount": "weld",
+      "hermetic": true,
+      "verification": "verified",
+      "source": "d38999.federalconnectors.com, Shell Type table + MIL-STD-1560 Series III Pin Count table, cross-checked line by line"
+    }
+  },
+  "keying_positions": [
+    "N",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "contact_type_codes": {
+    "P": "Pin",
+    "A": "Less Pin",
+    "H": "1500-Cycle Pin",
+    "S": "Socket",
+    "B": "Less Socket",
+    "J": "1500-Cycle Socket"
+  }
+}

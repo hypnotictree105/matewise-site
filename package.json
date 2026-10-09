@@ -1,0 +1,13 @@
+{
+  "name": "matewise-guided",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node scripts/validate.mjs && node --test tests/*.test.js",
+    "build": "node scripts/validate.mjs",
+    "dev": "node scripts/dev.mjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4.141.0"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "matewise",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-09-24",
+  "workers_dev": false,
+  "preview_urls": false,
+  "vars": {
+    "REQUIRE_GLOBAL_QUOTA": "true"
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "MOUSER_QUOTA",
+        "class_name": "MouserQuota"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "MouserQuota"
+      ]
+    }
+  ],
+  "build": {
+    "command": "node scripts/validate.mjs"
+  },
+  "routes": [
+    {
+      "pattern": "usematewise.com/*",
+      "zone_name": "usematewise.com"
+    }
+  ]
+}
