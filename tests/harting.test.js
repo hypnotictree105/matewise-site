@@ -17,7 +17,7 @@ test('Han E inserts come as male/female pairs of the same size and all cite a so
 });
 
 test('Han E BOM: female insert on End A, contacts by wire size, hood/housing lines, no per-cavity seals or backshells', () => {
-  const s = state([{count: 8, awg: 16, kind: 'power'}, {count: 1, awg: 18, kind: 'signal'}]);
+  const s = state([{count: 8, awg: 16, mm2: '1.5', kind: 'power'}, {count: 1, awg: 18, mm2: '1.0', kind: 'signal'}]);
   const o = optionsFor(s)[0];
   assert.equal(o.pn, '09330102702');
   assert.equal(o.mate[0], '09330102602');
