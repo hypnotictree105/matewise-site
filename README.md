@@ -110,6 +110,14 @@ The engine hooks are generic family flags: `end_a_role`, `in_compare`, `shells`,
 
 DEUTSCH face drawings use the true width-to-height ratio when TE dimensions exist, with labeled width and height. Panel cutouts, backshell lengths and D38999 shell dimensions are not in the catalog yet.
 
+## Guided and quick entry
+
+The page has two paths over the same state and engine. **Guided** is the seven-step walkthrough. **Quick entry** puts every input on one page (part lookup, connection, wire table, cable-end items, environment) with the candidate table and parts list updating live underneath. Switching paths keeps the inputs. The choice is remembered per browser.
+
+"Mate a part" takes a typed part number, including ordered variants such as `DT04-12PC` or `D38999/26WG16PN`, resolves it to its catalog housing with `resolvePart()` in `engine.js`, and runs the existing-connector match.
+
+Every analytics event carries `path` (`guided` or `quick`). The step funnel on /stats counts guided visits; a separate table compares the two paths.
+
 ## Usage analytics
 
 The site records anonymous funnel events so we can see where people stop and which connectors they ask for. Each browser tab gets a random visit ID (kept in sessionStorage, no cookie). We store the furthest step reached, the last step before leaving, whether a BOM was built, downloaded, printed or stock-checked, and for built BOMs the request (family, wire counts and sizes, mounting, build quantity, housing part numbers). No names, emails, IP addresses or free text. Browsers with Do Not Track or Global Privacy Control are not tracked. Visits older than 180 days are deleted.

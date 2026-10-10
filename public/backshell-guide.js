@@ -1,14 +1,14 @@
 import {backshellsFor, pickBackshell, orderPart, dimensionsFor} from './engine.js';
 import {lookFor} from './option-guide.js';
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
-const INK = '#1f2a2a', PLASTIC = '#4b5354', BOOT = '#2c3132', JACKET = '#6f7a73', BRAID = '#9aa29c';
+const INK = '#222527', PLASTIC = '#4b5054', BOOT = '#2c3032', JACKET = '#6f757a', BRAID = '#9a9fa2';
 const kindName = {basic: 'Backshell', strain: 'Strain relief', shield: 'Shield termination', 'boot-adapter': 'Boot adapter'};
 const angleName = a => a ? a + '° exit' : 'Straight exit';
 
 // Side view of one cable end: mating face on the left, cable leaving to the right (or bending down).
 // Schematic only: proportions are illustrative, not dimensions.
 export function cableEndDrawing(h, b, opts = {}) {
-  const {px = 300, color = '#c9cdca', boot = false, length = null} = opts;
+  const {px = 300, color = '#c9cbcd', boot = false, length = null} = opts;
   const kind = b?.kind || 'none', angle = b?.angle || 0, cy = 60;
   const d38 = h?.family === 'D38999';
   let body;
@@ -34,7 +34,7 @@ export function cableEndDrawing(h, b, opts = {}) {
   const title = `${b ? kindName[kind] + ', ' + angleName(angle).toLowerCase() : 'Connector with bare cable'}: schematic side view`;
   return `<svg class="cable-end" viewBox="0 0 ${w} ${h0}" width="${Math.round(px * w / 320)}" height="${Math.round(px * h0 / 320)}" role="img" aria-label="${esc(title)}"><title>${esc(title)}</title>
 <defs><pattern id="braid" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="${BRAID}"/><line x1="0" y1="0" x2="0" y2="5" stroke="${INK}" stroke-width="1.2"/></pattern></defs>
-${rearGroup}${body}${length ? `<g stroke="#46534d" stroke-width=".8"><line x1="10" y1="104" x2="106" y2="104"/><line x1="10" y1="99" x2="10" y2="109"/><line x1="106" y1="99" x2="106" y2="109"/></g><text x="58" y="117" font-size="10" fill="#46534d" text-anchor="middle" font-family="DM Sans, sans-serif">housing ${length} mm</text>` : ''}</svg>`;
+${rearGroup}${body}${length ? `<g stroke="#474d52" stroke-width=".8"><line x1="10" y1="104" x2="106" y2="104"/><line x1="10" y1="99" x2="10" y2="109"/><line x1="106" y1="99" x2="106" y2="109"/></g><text x="58" y="117" font-size="10" fill="#474d52" text-anchor="middle" font-family="Arial, sans-serif">housing ${length} mm</text>` : ''}</svg>`;
 }
 
 // "What fits this connector": every recorded rear accessory as a small drawing, the current pick highlighted.

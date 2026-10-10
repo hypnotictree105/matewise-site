@@ -60,6 +60,23 @@ export function partVariants(pn,h){
   for(const o of optionsForPart(pn,h))list=list.flatMap(p=>Object.keys(o.values).map(v=>applyOption(p,o,v)));
   return [...new Set(list)];
 }
+// Finds the catalog housing behind a typed part number, including ordered variants (finish, keying, key color).
+// Returns {pn, h, choices} where choices reproduce the typed number through orderPart, or null.
+let variantIndex=null;
+export function resolvePart(text){
+  const q=String(text||'').trim().toUpperCase().replace(/\s+/g,'');
+  if(!q)return null;
+  if(!variantIndex){
+    variantIndex=new Map();
+    for(const [pn,h] of Object.entries(data.housings)){
+      if(!h.cavity_profile)continue;
+      let list=[[pn,{}]];
+      for(const o of optionsForPart(pn,h))list=list.flatMap(([p,c])=>Object.keys(o.values).map(v=>[applyOption(p,o,v),{...c,[o.id]:v}]));
+      for(const [p,c] of list)if(!variantIndex.has(p.toUpperCase()))variantIndex.set(p.toUpperCase(),{pn,h,choices:c});
+    }
+  }
+  return variantIndex.get(q)||null;
+}
 export { data };
 export const exactPart = pn => typeof pn === 'string' && /^[A-Za-z0-9][A-Za-z0-9/._-]*$/.test(pn);
 export function validateWires(rows) {

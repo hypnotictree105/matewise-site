@@ -4,14 +4,14 @@ const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '
 // Relative contact diameters for the schematic only. Bigger number = bigger contact.
 const dot = {'22D': 1, 22: 1, 20: 1.3, 16: 1.75, 12: 2.4, 10: 2.9, 8: 3.4};
 const shellSize = {A: 9, B: 11, C: 13, D: 15, E: 17, F: 19, G: 21, H: 23, J: 25};
-const unkeyed = '#9ea4a6';
+const unkeyed = '#9ea3a6';
 
 export function lookFor(pn, h, choices) {
   const o = optionsForPart(pn, h);
   const finish = o.find(x => x.id === 'finish'), key = o.find(x => x.id === 'key');
   if (finish) return finish.values[chosen(finish, choices)].look;
   if (key) return key.values[chosen(key, choices)].look;
-  return h.family === 'D38999' ? '#c9cdca' : unkeyed;
+  return h.family === 'D38999' ? '#c9cbcd' : unkeyed;
 }
 // Places contacts largest-first on concentric rings. Positions are illustrative, not MIL-STD-1560 coordinates.
 function ringLayout(profile) {
@@ -33,20 +33,20 @@ export function faceDiagram(pn, h, choices, px = 132) {
   if (!h) return '';
   const pin = h.gender === 'pin', fill = lookFor(pn, h, choices);
   const title = `${orderPart(pn, h, choices)} mating face, schematic`;
-  const contact = (x, y, r) => pin ? `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="#1f2a2a"/>`
-    : `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="#fff" stroke="#1f2a2a" stroke-width="${Math.max(0.6, r * 0.28).toFixed(1)}"/>`;
+  const contact = (x, y, r) => pin ? `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="#222527"/>`
+    : `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="#fff" stroke="#222527" stroke-width="${Math.max(0.6, r * 0.28).toFixed(1)}"/>`;
   if (data.families[h.family]?.face === 'usb') {
     const R = 50;
     return `<svg class="face" viewBox="${-R - 6} ${-R - 6} ${2 * R + 12} ${2 * R + 12}" width="${px}" height="${px}" role="img" aria-label="${esc(title)}"><title>${esc(title)}</title>
-<circle r="${R}" fill="${fill}" stroke="#1f2a2a" stroke-width="2"/><circle r="${R * 0.82}" fill="#eef1ec" stroke="#1f2a2a" stroke-opacity=".35"/><rect x="-4" y="${-R - 4}" width="8" height="${R * 0.2 + 4}" rx="2" fill="#1f2a2a"/>
-<rect x="-24" y="-9" width="48" height="18" rx="2" fill="${pin ? '#1f2a2a' : '#fff'}" stroke="#1f2a2a" stroke-width="2"/><rect x="-18" y="${pin ? -3 : -6}" width="36" height="6" fill="${pin ? '#c9cdca' : '#1f2a2a'}"/></svg>`;
+<circle r="${R}" fill="${fill}" stroke="#222527" stroke-width="2"/><circle r="${R * 0.82}" fill="#edeff0" stroke="#222527" stroke-opacity=".35"/><rect x="-4" y="${-R - 4}" width="8" height="${R * 0.2 + 4}" rx="2" fill="#222527"/>
+<rect x="-24" y="-9" width="48" height="18" rx="2" fill="${pin ? '#222527' : '#fff'}" stroke="#222527" stroke-width="2"/><rect x="-18" y="${pin ? -3 : -6}" width="36" height="6" fill="${pin ? '#c9cbcd' : '#222527'}"/></svg>`;
   }
   if (h.family === 'D38999') {
     const shell = shellSize[h.shell_size] || 17, R = 26 + shell * 1.5, {pts, extent} = ringLayout(h.cavity_profile || {});
     const k = (R * 0.74) / extent;
     return `<svg class="face" viewBox="${-R - 6} ${-R - 6} ${2 * R + 12} ${2 * R + 12}" width="${px}" height="${px}" role="img" aria-label="${esc(title)}"><title>${esc(title)}</title>
-<circle r="${R}" fill="${fill}" stroke="#1f2a2a" stroke-width="2"/><circle r="${R * 0.86}" fill="#eef1ec" stroke="#1f2a2a" stroke-opacity=".35"/>
-<rect x="-4" y="${-R - 4}" width="8" height="${R * 0.2 + 4}" rx="2" fill="#1f2a2a"/>
+<circle r="${R}" fill="${fill}" stroke="#222527" stroke-width="2"/><circle r="${R * 0.86}" fill="#edeff0" stroke="#222527" stroke-opacity=".35"/>
+<rect x="-4" y="${-R - 4}" width="8" height="${R * 0.2 + 4}" rx="2" fill="#222527"/>
 ${pts.map(p => contact(p.x * k, p.y * k, Math.max(1.6, p.r * k))).join('')}</svg>`;
   }
   const [rows, cols] = data.families[h.family]?.layouts?.[h.cavities] || data.deutsch_layouts?.[h.cavities] || [1, h.cavities || 1];
@@ -60,13 +60,13 @@ ${pts.map(p => contact(p.x * k, p.y * k, Math.max(1.6, p.r * k))).join('')}</svg
   let cells = '';
   for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) cells += contact(ox + pitch / 2 + c * pitch, oy + pitch / 2 + r * pitch, r0);
   const dimW = dims ? 22 : 0, dimH = dims ? 30 : 0;
-  const label = (x, y, t, rot) => `<text x="${x}" y="${y}" font-size="9" fill="#46534d" text-anchor="middle" font-family="DM Sans, sans-serif"${rot ? ` transform="rotate(-90 ${x} ${y})"` : ''}>${t}</text>`;
-  const dimLines = dims ? `<g stroke="#46534d" stroke-width=".8"><line x1="0" y1="${hh + 9}" x2="${w}" y2="${hh + 9}"/><line x1="0" y1="${hh + 5}" x2="0" y2="${hh + 13}"/><line x1="${w}" y1="${hh + 5}" x2="${w}" y2="${hh + 13}"/><line x1="${w + 9}" y1="-12" x2="${w + 9}" y2="${hh}"/><line x1="${w + 5}" y1="-12" x2="${w + 13}" y2="-12"/><line x1="${w + 5}" y1="${hh}" x2="${w + 13}" y2="${hh}"/></g>${label(w / 2, hh + 20, dims.mm.width + ' mm')}${label(w + 19, (hh - 12) / 2, dims.mm.height + ' mm', true)}` : '';
+  const label = (x, y, t, rot) => `<text x="${x}" y="${y}" font-size="9" fill="#474d52" text-anchor="middle" font-family="Arial, sans-serif"${rot ? ` transform="rotate(-90 ${x} ${y})"` : ''}>${t}</text>`;
+  const dimLines = dims ? `<g stroke="#474d52" stroke-width=".8"><line x1="0" y1="${hh + 9}" x2="${w}" y2="${hh + 9}"/><line x1="0" y1="${hh + 5}" x2="0" y2="${hh + 13}"/><line x1="${w}" y1="${hh + 5}" x2="${w}" y2="${hh + 13}"/><line x1="${w + 9}" y1="-12" x2="${w + 9}" y2="${hh}"/><line x1="${w + 5}" y1="-12" x2="${w + 13}" y2="-12"/><line x1="${w + 5}" y1="${hh}" x2="${w + 13}" y2="${hh}"/></g>${label(w / 2, hh + 20, dims.mm.width + ' mm')}${label(w + 19, (hh - 12) / 2, dims.mm.height + ' mm', true)}` : '';
   const vw = w + 8 + dimH, vh = hh + 18 + dimW;
   return `<svg class="face" viewBox="-4 -14 ${vw} ${vh}" width="${px}" height="${Math.round(px * vh / vw)}" role="img" aria-label="${esc(title)}${dims ? ', ' + dims.mm.width + ' by ' + dims.mm.height + ' mm overall' : ''}"><title>${esc(title)}</title>
-${data.families[h.family]?.shells ? `<circle cx="-0.5" cy="${hh / 2}" r="3.2" fill="#fff" stroke="#1f2a2a" stroke-width="1.2"/><circle cx="${w + 0.5}" cy="${hh / 2}" r="3.2" fill="#fff" stroke="#1f2a2a" stroke-width="1.2"/>` : `<rect x="${w / 2 - 14}" y="-12" width="28" height="12" rx="3" fill="${fill}" stroke="#1f2a2a" stroke-width="1.5"/>`}
-<rect x="0" y="0" width="${w}" height="${hh}" rx="9" fill="${fill}" stroke="#1f2a2a" stroke-width="2"/>
-<rect x="5" y="5" width="${w - 10}" height="${hh - 10}" rx="6" fill="#eef1ec" stroke="#1f2a2a" stroke-opacity=".3"/>${cells}${dimLines}</svg>`;
+${data.families[h.family]?.shells ? `<circle cx="-0.5" cy="${hh / 2}" r="3.2" fill="#fff" stroke="#222527" stroke-width="1.2"/><circle cx="${w + 0.5}" cy="${hh / 2}" r="3.2" fill="#fff" stroke="#222527" stroke-width="1.2"/>` : `<rect x="${w / 2 - 14}" y="-12" width="28" height="12" rx="3" fill="${fill}" stroke="#222527" stroke-width="1.5"/>`}
+<rect x="0" y="0" width="${w}" height="${hh}" rx="9" fill="${fill}" stroke="#222527" stroke-width="2"/>
+<rect x="5" y="5" width="${w - 10}" height="${hh - 10}" rx="6" fill="#edeff0" stroke="#222527" stroke-opacity=".3"/>${cells}${dimLines}</svg>`;
 }
 function picker(o, choices) {
   const current = chosen(o, choices);
