@@ -79,6 +79,16 @@ Step 6 shows each half's mating face as a schematic SVG drawn from catalog data 
 
 Options are declared per family in `public/options-data.js` and applied generically by `orderPart()` in the engine. The diagrams are schematic: they don't show exact contact positions or cavity numbers; the D38999 panel links to the MIL-STD-1560 chart for the exact layout.
 
+## D38999 insert faces (MIL-STD-1560)
+
+`public/insert-layouts.js` holds the true-position contact tables from MIL-STD-1560C w/Change 3 for every D38999 arrangement in the catalog: position ID, x/y in inches and contact size. It is generated, not hand-edited:
+
+```
+python3 scripts/insert-layouts-1560.py MIL-STD-1560.pdf profiles.json > public/insert-layouts.js
+```
+
+`profiles.json` is `{arrangement: {size: count}}` from the catalog; the script stops if any arrangement's table doesn't match its counts. Mixed-size position IDs come from each figure's summary table and are listed in the script. Faces are drawn to scale with the 1560 pin and cavity diameters. The pin insert is drawn as tabulated and the socket insert as its mirror image.
+
 ## Backshells
 
 Step 6 also draws the cable end from the side (schematic) and lists every rear accessory recorded for the selected connector, highlighting the one that goes in the BOM. Data lives in `public/backshell-data.js`:
