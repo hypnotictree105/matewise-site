@@ -78,15 +78,17 @@ export function validateWires(rows) {
   if (usb.length&&(rows.length>1||Number(usb[0].count)!==1)) return 'A rugged USB connector carries one USB port. Build the USB port as its own connection, and the other wires as another.';
   return '';
 }
-export function contactFor(h,size,awg) {
+export function contactFor(h,size,awg,mm2) {
   const records=data.contact_records.filter(c=>c.family===h.family&&c.series===h.series&&c.termination===h.termination&&c.gender===h.gender&&c.size===size);
-  if(records.length)return records.find(c=>awg==null||(awg>=c.awg_range[0]&&awg<=c.awg_range[1]));
+  if(records.length)return records.find(c=>(awg==null||(awg>=c.awg_range[0]&&awg<=c.awg_range[1]))&&(mm2===undefined||c.wire_mm2===mm2));
   const c=data.contacts[h.family]?.[h.gender];
   return c&&(awg==null||(awg>=c.awg_range[0]&&awg<=c.awg_range[1]))?c:null;
 }
 // A wire is an AWG number, or a token: 'coax:<cable>' or 'data:<protocol>'.
-export const wireToken=r=>r.kind==='coax'?'coax:'+r.cable:r.kind==='data'?'data:'+r.protocol:Number(r.awg);
+export const wireToken=r=>r.kind==='coax'?'coax:'+r.cable:r.kind==='data'?'data:'+r.protocol:r.mm2?'wire:'+Number(r.awg)+':'+r.mm2:Number(r.awg);
 function accepts(h, size, awg) {
+  // Area is resolved in the BOM. Missing or unsupported area must not hide insert candidates.
+  if(typeof awg==='string'&&awg.startsWith('wire:'))awg=Number(awg.split(':')[1]);
   if(typeof awg==='string'){
     const [kind,v]=[awg.slice(0,awg.indexOf(':')),awg.slice(awg.indexOf(':')+1)];
     if(kind==='coax'){const c=data.coax_cables?.[v];return !!(c&&c.families.includes(h.family)&&c.contacts[size]);}
@@ -160,15 +162,48 @@ export function endpoints(option,s) {
   if(s.scope==='pair'&&option.mate)ends.push({label:'End B',pn:option.mate[0],h:option.mate[1]});
   return ends;
 }
+export function shellAssemblyChoices(option,s) {
+  return (data.families[option?.h.family]?.shell_assemblies||[]).filter(p=>
+    s.scope===p.scope&&s.connection===p.connection&&option.pn===p.inserts[0]&&option.mate?.[0]===p.inserts[1]);
+}
+export function shellAssemblyChecks(option,s) {
+  const assembly=shellAssemblyChoices(option,s).find(p=>p.id===s.accessories.shellAssembly);
+  if(!assembly)return {assembly:null,valid:false,problems:['Choose a documented hood and panel housing arrangement.']};
+  const a=s.accessories,problems=[];
+  if(!assembly.mounts.includes(s.mount))problems.push('This arrangement uses a flange-mounted bulkhead housing, not a jam nut.');
+  if(a.exit!==assembly.exit)problems.push('This hood has straight top entry. Choose straight or leave the hood unresolved.');
+  if(a.shield||s.shielding==='yes')problems.push('Shield termination needs a documented EMC hood and gland; this arrangement does not provide it.');
+  if(a.boot)problems.push('No heat-shrink boot is documented for this arrangement.');
+  if(Object.values(assembly.ends).some(e=>e.shell.shell_size!==option.h.shell_size||e.shell.locking!==assembly.locking||e.gland&&e.shell.thread!==e.gland.thread))problems.push('The recorded shell size, lock or cable-entry thread does not match.');
+  return {assembly,valid:problems.length===0,problems};
+}
+export function capForEnd(option,s,end) {
+  if(!data.families[end.h.family]?.shells)return capFor(end.pn);
+  const c=shellAssemblyChecks(option,s);
+  return c.valid?c.assembly.ends[end.label]?.cap:null;
+}
+export function glandChecks(assembly,s,label) {
+  const gland=assembly?.ends[label]?.gland;
+  if(!gland)return null;
+  const a=s.accessories,range=gland.seals[a.glandSeal],diameter=Number(a[label==='End B'?'diameterB':'diameterA']),problems=[];
+  if(a.jacket!==gland.jacket)problems.push('Confirm one round jacketed cable; a gland does not seal individual loose wires.');
+  if(!range)problems.push('Choose the gland seal range: 5–9 mm or 6–12 mm.');
+  if(!Number.isFinite(diameter)||diameter<=0)problems.push('Enter the finished cable outside diameter.');
+  else if(range&&(diameter<range[0]||diameter>range[1]))problems.push(`Cable diameter must be within the selected ${range[0]}–${range[1]} mm seal range.`);
+  return {gland,valid:problems.length===0,problems};
+}
 export function buildBOM(option,s) {
   const lines=[]; const builds=Number(s.builds);
   const add=(end,qty,pn,description,verification,reason,source='',category='Assembly')=>lines.push({end,qty,total:qty*builds,pn,description,verification,reason,source,category});
+  const enclosure=shellAssemblyChecks(option,s);
+  const addPart=(label,p)=>{add(label,1,p.pn,p.description,p.verification,p.reason,p.source);Object.assign(lines.at(-1),{source_url:p.source_url,manufacturer:p.manufacturer});};
   for(const end of endpoints(option,s)) {
     const {h,pn,label}=end;const fit=fitHousing(h,s.wires);if(!fit)throw Error('The selected assembly no longer fits these wires.');
     const opts=optionsForPart(pn,h),ordered=orderPart(pn,h,s.options);
     add(label,1,h.ordering_incomplete?null:ordered,h.role?.endsWith('insert')?'Connector insert':'Connector housing',h.verification,h.ordering_candidate?'Inline receptacle ordering-code candidate. Confirm available insert arrangement, mating interface and accessories with Glenair before ordering.':h.reference_path?'Glenair ordering-code configuration: nickel finish, A98, normal keying; A/B suffixes specify no standard contacts. Check orderability and application requirements.':h.description?`${h.description}. Selected for the entered wire sizes. Crimp contacts are ordered separately. Other application requirements need review.`:'Selected for the entered wire sizes and mounting arrangement. Other application requirements need review.',h.source);
     lines.at(-1).source_url=h.source_url;
     lines.at(-1).manufacturer=sourceLabel(h);
+    if(h.protective_earth)lines.at(-1).reason+=' '+h.protective_earth.description;
     if(h.ordering_incomplete){lines.at(-1).designation=h.designation;lines.at(-1).reason=`${h.description}. ${data.families[h.family].ordering_note||'Complete the ordering code from the manufacturer catalog.'}`;}
     {const d=dimensionsFor(pn,h);if(d.overall){lines.at(-1).reason+=` Reference size ${sizeText(d)} (TE, reference only${d.overall.verification==='verified'?'':'; confirm on the drawing'}).`;lines.at(-1).dimensions=d.overall.mm;}}
     if(opts.length){const picks=opts.map(o=>{const v=chosen(o,s.options),d=o.values[v];return `${o.label}: ${v}${d.label?' ('+d.label+')':d.finish?' ('+d.material+', '+d.finish+')':''}`;});
@@ -184,8 +219,10 @@ export function buildBOM(option,s) {
         add(label,n,cc[h.gender],`Size ${size} coax ${h.gender} contacts · ${c.label}`,c.verification,`AS39029 coax contact for ${c.label} (${cc.vendor}), rated to ${c.max_freq} by the manufacturer. Use the manufacturer's coax crimp and assembly tools.`,c.source);
         lines.at(-1).source_url=c.source_url;continue;
       }
-      const contact=contactFor(h,size,Number(awg));
-      add(label,n,contact?.pn||null,`${data.contact_sizes[size]?.label||'Size '+size} ${h.gender} contacts · ${awg} AWG`,contact?.verification||'unknown',contact?(exactPart(contact.pn)?'Contact size, gender, series and documented wire range checked. Confirm finished insulation diameter and installation requirements.'+sealNote(h):'Wire range checked against this record. Resolve the plating suffix before ordering.'+sealNote(h)):'Exact compatible contact part number is not in the catalog.',contact?.source);
+      const [,wireAwg,mm2]=awg.startsWith('wire:')?awg.split(':'):['',awg,undefined];
+      const areaRequired=data.families[h.family]?.requires_conductor_area;
+      const contact=contactFor(h,size,Number(wireAwg),areaRequired?(mm2||''):undefined);
+      add(label,n,contact?.pn||null,`${data.contact_sizes[size]?.label||'Size '+size} ${h.gender} contacts · ${wireAwg} AWG`,contact?.verification||'unknown',contact?(exactPart(contact.pn)?'Contact size, gender, series and documented wire range checked. Confirm finished insulation diameter and installation requirements.'+sealNote(h):'Wire range checked against this record. Resolve the plating suffix before ordering.'+sealNote(h)):areaRequired?'Confirm the conductor area from the cable specification in Your wires. No contact is chosen from approximate AWG conversion alone.':'Exact compatible contact part number is not in the catalog.',contact?.source);
       lines.at(-1).source_url=contact?.source_url;
       if(contact?.wire_mm2)lines.at(-1).description+=` (${contact.wire_mm2} mm²)`;
       if(contact?.note)lines.at(-1).reason+=' '+contact.note;
@@ -194,7 +231,8 @@ export function buildBOM(option,s) {
     const shells=data.families[h.family]?.shells;
     if(shells){
       const what=(shells[s.scope==='existing'?'existing':s.connection]||shells.panel)[label]||'Hood or housing';
-      add(label,1,null,`${what} · Han size ${h.shell_size}`,'unknown',shells.note.replace('{size}',h.shell_size));
+      if(enclosure.valid)addPart(label,enclosure.assembly.ends[label].shell);
+      else add(label,1,null,`${what} · Han size ${h.shell_size}`,'unknown',shells.note.replace('{size}',h.shell_size)+' '+enclosure.problems.join(' '));
     }
     if(fit.spare&&data.families[h.family]?.unused_cavity_seals===false)add(label,0,null,`${fit.spare} unused position${fit.spare>1?'s':''}`,'verified','No per-cavity sealing plugs: the hood or housing gasket and cable gland seal this connector. Leave the positions empty or use them as spares.');
     for(const [size,n] of Object.entries(data.families[h.family]?.unused_cavity_seals===false?{}:fit.spares)) {
@@ -205,9 +243,9 @@ export function buildBOM(option,s) {
     }
     const a=s.accessories;
     if(wantsCap(s,label)){
-      const cap=capFor(pn);
+      const cap=capForEnd(option,s,end);
       add(label,1,cap?.pn||null,'Dust cap / protective cover',cap?'verified':'unknown',cap?.reason||'A dust cap is requested for this half. No manufacturer-matched cap is recorded for this exact housing yet.',cap?.source);
-      lines.at(-1).source_url=cap?.source_url;
+      lines.at(-1).source_url=cap?.source_url;if(cap?.manufacturer)lines.at(-1).manufacturer=cap.manufacturer;
     }
     const path=data.accessory_paths[h.accessory_path];
     if(path){
@@ -219,7 +257,14 @@ export function buildBOM(option,s) {
       continue;
     }
     const viaShell=!!data.families[h.family]?.shells;
-    if(viaShell&&(a.protection||a.boot||a.shield))add(label,1,null,'Cable entry / gland for the hood','unknown','Han hoods take a cable gland (or have one built in). Choose the entry thread and gland for your cable diameter'+(a.shield?'; for shield termination use an EMC hood and gland':'')+'. Heat-shrink boots and backshells don’t apply.');
+    if(viaShell){
+      const gland=glandChecks(enclosure.assembly,s,label);
+      // Bulkhead End A has no cable entry. Every cable end needs its gland, even with protection unchecked.
+      if(gland&&enclosure.valid&&gland.valid){addPart(label,gland.gland);lines.at(-1).reason+=` Selected seal range: ${a.glandSeal} mm; cable: ${a[label==='End B'?'diameterB':'diameterA']} mm.`;}
+      else if(s.scope==='existing'||s.connection==='cables'||label==='End B')add(label,1,null,'Cable entry / gland for the hood','unknown',[...enclosure.problems,...(gland?.problems||['Choose the hood entry thread and a gland for the cable diameter.'])].join(' '));
+      if(a.boot)add(label,1,null,'Heat-shrink boot requirement','unknown','No boot and adapter combination is documented for this hood.');
+      if(a.shield||s.shielding==='yes')add(label,1,null,'Shield termination hardware','unknown','Select a documented EMC enclosure and gland assembly.');
+    }
     if(!viaShell&&(a.protection||a.boot||a.shield)) {
       const {want,angle,fits,pick}=pickBackshell(backshellsFor(pn,h),a);
       const title=a.boot?'Boot-compatible adapter / backshell':a.shield?'Shield-termination backshell':'Cable-protection backshell';
@@ -246,7 +291,8 @@ export function buildBOM(option,s) {
 }
 export function reviewIssues(option,s,lines) {
   const issues=['Current, voltage, insulation diameter, environmental ratings and material suitability have not been validated by this prototype.','Use the Mouser lookup below to check availability. Stock and pricing are separate from compatibility approval.'];
-  if(lines.some(l=>!exactPart(l.pn)))issues.push('Some required selections have no exact part number, or contain a plating wildcard.');
+  if(lines.some(l=>l.qty>0&&!exactPart(l.pn)))issues.push('Some required selections have no exact part number, or contain a plating wildcard.');
+  if(option.h.protective_earth)issues.push(option.h.protective_earth.description+' '+(s.protectiveEarth==='separate'?'PE is recorded separately from the circuit wires.':'PE conductor requirements have not been confirmed.'));
   if(lines.some(l=>l.verification!=='verified'))issues.push('Some catalog records are inferred or unknown and require source verification.');
   if(s.accessories.boot)issues.push(option.h.reference_path?'The boot dimensional screen is limited to the documented reference combination. Confirm cable-jacket adhesion, installation, temperature and environmental suitability.':'Boot and adapter compatibility must be established from drawings, including cable diameter, sealing surfaces, material and adhesive.');
   if(lines.some(l=>l.total==null))issues.push('Confirm whether the jam nut is included before setting its purchase quantity.');
@@ -255,7 +301,7 @@ export function reviewIssues(option,s,lines) {
 }
 export function csv(lines) {
   const cell=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
-  return [['End','Description','Manufacturer','Part number','Qty per connection','Purchase quantity','Catalog status','Availability','Reason','Source'],...lines.map(l=>[l.end,l.description,l.manufacturer||'',l.pn||'Unresolved',l.qty,l.total??'Confirm included contents',l.verification,'Not checked',l.reason,l.source_url||l.source])].map(row=>row.map(cell).join(',')).join('\r\n');
+  return [['End','Description','Manufacturer','Part number','Qty per connection','Purchase quantity','Catalog status','Availability','Reason','Source'],...lines.map(l=>[l.end,l.description,l.manufacturer||'',l.pn||(l.qty===0?'Not required':'Unresolved'),l.qty,l.total??'Confirm included contents',l.verification,'Not checked',l.reason,l.source_url||l.source])].map(row=>row.map(cell).join(',')).join('\r\n');
 }
 export function accessoryChecks(h,s,label='End A'){
   const p=data.accessory_paths[h.accessory_path];if(!p)return null;
