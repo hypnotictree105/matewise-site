@@ -41,6 +41,12 @@ No license has been chosen yet. You're welcome to read the code and open issues 
 - Candidate selection, user-selected accessories, dependency placeholders, both-end BOM quantities and reusable tools.
 - Downloadable draft CSV, printing, catalog evidence and exact-part distributor search links.
 
+## HARTING Han E preview
+
+The first scoped assembly is a 6B cable-to-panel pair: crimp inserts, contacts selected by confirmed conductor area, a single-lever bulkhead housing, straight M20 hood, cable gland and optional covers. Choose Han E, enter up to six circuit wires (PE is separate), then choose the enclosure on Finish the ends. Missing diameter, seal range or conductor area remains an open selection.
+
+See [the Han 6B test recipe and source notes](HAN_6B.md). Panel fasteners, gasket package contents, PE installation and application suitability still require review. Larger Han sizes, cable-to-cable arrangements, side entry, EMC shielding and boots remain incomplete.
+
 ## Current limits
 
 - Mouser live lookup requires the server-side MOUSER_API_KEY secret. Search-link fallbacks are not stock confirmations.
@@ -86,11 +92,9 @@ Step 6 also draws the cable end from the side (schematic) and lists every rear a
 - TE DEUTSCH DT, 2–12 positions: straight and 90° backshells for plugs (DT06) and receptacles (DT04), plus strain-relief versions for 2–6 positions, from TE's DT brochure (rev 08-25). The strain-relief version is chosen when the cable is jacketed.
 - D38999 Series III: AS85049 /38 (straight strain relief), /39 (90° strain relief), /88 (straight EMI/RFI), /89 (45° EMI/RFI) and /69 (heat-shrink boot adapter) per shell size. These stay open BOM lines showing the designation (e.g. M85049/38-17) until a finish letter and self-locking/clamp options are modeled.
 
-## HARTING Han E (preview)
+## Han catalog data
 
-`public/harting-data.js` adds the first HARTING family: Han E crimp inserts with 6, 10, 16 and 24 contacts (male 09 33 0xx 2602, female 09 33 0xx 2702; sizes 6B–24B; 16 A / 500 V; 0.14–4 mm²) and the silver-plated Han E crimp contacts by wire size. Each half is a male or female insert plus contacts; the BOM adds a hood or housing line of the matching Han B size (bulkhead/surface housing or coupler on End A, hood on End B) and a cable-gland line, both open until hoods and housings are modeled. Han E is only offered when chosen explicitly (`in_compare: false`) until then.
-
-The engine hooks are generic family flags: `end_a_role`, `in_compare`, `shells`, `unused_cavity_seals`, `layouts`.
+`public/harting-data.js` defines Han E crimp inserts with 6, 10, 16 and 24 circuit contacts plus separate PE. The first exact enclosure arrangement covers the 6B cable-to-panel pair described above; other enclosure configurations remain open. Family data declares `shell_assemblies`, `requires_conductor_area`, `end_a_role`, `in_compare`, `shells`, `unused_cavity_seals` and `layouts`. Han E remains an explicit preview choice, outside automatic comparison.
 
 ## Coax and USB (head start)
 

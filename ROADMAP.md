@@ -5,7 +5,7 @@ Updated 2026-10-09. This document records priorities and acceptance criteria; un
 ## Current baseline
 
 - The guided builder and Mouser stock lookup are deployed at https://usematewise.com.
-- Han E is a preview in `public/harting-data.js`: 6-, 10-, 16- and 24-position crimp inserts and contacts. Hoods/housings and cable glands remain unresolved BOM lines. Han E is excluded from automatic family comparison.
+- Han E is a preview in `public/harting-data.js`: 6-, 10-, 16- and 24-position crimp inserts and contacts. A scoped 6B cable-to-panel arrangement now resolves the hood, bulkhead housing, diameter-matched gland and optional covers. Larger sizes and other arrangements retain unresolved enclosure items; panel fasteners and gasket package contents still need confirmation. Han E is excluded from automatic family comparison.
 - Funnel events and the protected /stats dashboard exist. The event list in `server/analytics.js` covers steps, BOMs, CSV, printing and stock checks, but not distributor clicks.
 
 ## Priority 1: complete the first HARTING Han connection
@@ -13,14 +13,16 @@ Updated 2026-10-09. This document records priorities and acceptance criteria; un
 Extend the existing Han E preview. Start with one size and arrangement: a 6B cable-to-panel connection with crimp inserts. Add other sizes and cable-to-cable assemblies after the first complete assembly is verified.
 
 - [ ] Source an exact matching hood and panel housing from HARTING documentation. Record size, locking mechanism, gasket/package contents, mounting details, entry direction and thread.
-- [ ] Add compatible cable glands using actual cable outside-diameter ranges and entry threads. An unknown diameter or an unsupported combination must remain an open item.
-- [ ] Add protective covers for each applicable exposed half; verify the cover's mating interface and locking arrangement. Scale quantities by the selected ends and build quantity.
-- [ ] Distinguish insert, enclosure and contact selection in plain-language questions. Explain which parts are included and which must be purchased separately.
-- [ ] Model protective earth separately from the insert's signal/contact count; record the PE termination requirements from the manufacturer.
-- [ ] Select crimp contacts using the manufacturer's actual conductor ranges. Resolve ambiguous AWG-to-mm2 choices explicitly instead of choosing a contact from nominal AWG alone.
-- [ ] Apply the next available contact-count option when the requested count is between supported sizes. Determine unused-position requirements from Han documentation; do not reuse Deutsch sealing-plug rules.
-- [ ] Keep compatibility rules deterministic and driven by family data, with manufacturer source links and verification status on each fact.
+- [x] Add compatible cable glands using actual cable outside-diameter ranges and entry threads. An unknown diameter or an unsupported combination must remain an open item.
+- [x] Add protective covers for each applicable exposed half; verify the cover's mating interface and locking arrangement. Scale quantities by the selected ends and build quantity.
+- [x] Distinguish insert, enclosure and contact selection in plain-language questions. Explain which parts are included and which must be purchased separately.
+- [x] Model protective earth separately from the insert's signal/contact count; record the PE termination requirements from the manufacturer.
+- [x] Select crimp contacts using the manufacturer's actual conductor ranges. Resolve ambiguous AWG-to-mm2 choices explicitly instead of choosing a contact from nominal AWG alone.
+- [x] Apply the next available contact-count option when the requested count is between supported sizes. Determine unused-position requirements from Han documentation; do not reuse Deutsch sealing-plug rules.
+- [x] Keep compatibility rules deterministic and driven by family data, with manufacturer source links and verification status on each fact.
 - [ ] Add exact orderable accessory part numbers to distributor lookup only after compatibility and package contents are verified. A stock result is not compatibility evidence.
+
+Implemented scope: one explicit 6B flange/bulkhead + straight M20, single-lever arrangement. The gland needs a jacketed cable, measured diameter and a selected 5–9 or 6–12 mm seal range. AWG alone leaves contacts unresolved. Source links and a test recipe are in `HAN_6B.md`. Panel hardware/package confirmation and browser visual review remain open; this is not an order-ready approval. Exact new parts are included in the stock endpoint allowlist.
 
 Acceptance checks:
 
