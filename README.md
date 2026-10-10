@@ -79,6 +79,14 @@ Step 6 shows each half's mating face as a schematic SVG drawn from catalog data 
 
 Options are declared per family in `public/options-data.js` and applied generically by `orderPart()` in the engine. The diagrams are schematic: they don't show exact contact positions or cavity numbers; the D38999 panel links to the MIL-STD-1560 chart for the exact layout.
 
+## When nothing matches
+
+`explainNoMatch(s)` in `engine.js` says which requirement removed the last candidates: the family has no parts, no insert holds the wires (with the best one found), the spare-position request, the mounting (with the mounts that do exist), or the one-manufacturer rule (naming both halves). It then tries nearby requests (other connection type, any mount, all families, no spares) and offers only those that return matches, with their counts. Both the guided and quick-entry pages use it.
+
+## Amphenol Tri-Start (TV)
+
+MIL-DTL-38999 Series III has no military in-line receptacle, so a D38999 cable-to-cable pair needs a manufacturer's own parts. The catalog builds Amphenol TV01 line receptacles and TV06 straight plugs (service class RW by default, also RF, RK, RS, DN) for each recorded arrangement, from the Amphenol ordering code. They are marked as ordering-code candidates: confirm insert availability with Amphenol.
+
 ## D38999 insert faces (MIL-STD-1560)
 
 `public/insert-layouts.js` holds the true-position contact tables from MIL-STD-1560C w/Change 3 for every D38999 arrangement in the catalog: position ID, x/y in inches and contact size. It is generated, not hand-edited:

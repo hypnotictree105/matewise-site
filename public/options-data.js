@@ -7,6 +7,7 @@ export const optionSources = {
   d38999Keying: {verification: 'verified', source: 'd38999.federalconnectors.com, Part Number Breakdown: Keying Position (retrieved 2026-10-09)', source_url: FEDERAL + '#keying-position'},
   d38999Inserts: {source: 'MIL-STD-1560 insert arrangement chart on d38999.federalconnectors.com', source_url: FEDERAL + 'images/Insert-Arrangements.jpg'},
   d38999KeyingChart: {source_url: FEDERAL + 'images/D38999-Keying-Positions.jpg'},
+  tvClass: {verification: 'verified', source: 'Amphenol Aerospace Tri-Start (TV) catalog, p. 43: service class codes RW, RF, RK, RS, DN', source_url: 'https://docs.rs-online.com/4793/0900766b814b5158.pdf'},
   dtKeys: {verification: 'verified', source: 'TE DEUTSCH DT Inline Connectors brochure (rev 08-25): "4 keys available for 8 & 12 position", A GRY, B BLK, C GRN, D BRN; TE drawing DT06-12SX-E003 rev A1 note 4: mates with DT04-12P* (same key)', source_url: 'https://www.farnell.com/datasheets/4722649.pdf', drawing_url: 'https://www.mouser.com/datasheet/2/418/8/ENG_CD_DT06_12SX_E003_A1-605785.pdf'},
   dtmKeys: {verification: 'verified', source: 'TE application specification 114-151010 rev D2 (DTM): 8- and 12-pin housings color-coded to the keying letter; plug and receptacle must be the same key', source_url: 'https://www.farnell.com/datasheets/4800282.pdf'}
 };
@@ -27,6 +28,13 @@ export const d38999Finishes = {
   H: {material: 'Hermetic', finish: 'Space grade', rating: '', look: looks.space, shells: 'hermetic'},
   N: {material: 'Hermetic', finish: 'Stainless steel, nickel plated', rating: '', look: looks.nickel, shells: 'hermetic'},
   Y: {material: 'Hermetic', finish: 'Stainless steel, passivated', rating: '', look: looks.stainless, shells: 'hermetic'}
+};
+export const tvClasses = {
+  RW: {material: 'Aluminum', finish: 'Olive drab cadmium', rating: '500-hr salt spray · 175 °C', look: looks.od},
+  RF: {material: 'Aluminum', finish: 'Electroless nickel', rating: '48-hr salt spray · 200 °C', look: looks.nickel},
+  RK: {material: 'Stainless steel', finish: 'Corrosion-resistant, firewall', rating: '500-hr salt spray · 200 °C', look: looks.firewall},
+  RS: {material: 'Stainless steel', finish: 'Nickel plated, firewall barrier', rating: '500-hr salt spray · 200 °C', look: looks.nickel},
+  DN: {material: 'Aluminum', finish: 'Durmalon (nickel-PTFE)', rating: '1000-hr salt spray · 175 °C', look: looks.ptfe}
 };
 export const d38999Keying = {
   N: {label: 'Normal', note: 'Standard position. Most common choice.'},
@@ -56,6 +64,10 @@ export function extendOptions(data) {
     {id: 'keying', label: 'Keying position', kind: 'replace', regex: milPattern, group: 4, values: () => d38999Keying, both: true, ...optionSources.d38999Keying,
       help: 'Both halves get the same letter. Use different letters on side-by-side connectors of the same size so they can’t be swapped.'}
   ];
+  // Amphenol TV service class (material and finish) codes, from the Tri-Start catalog p. 43. RK and RS are not offered with coax.
+  const tvClass = h => Object.fromEntries(Object.entries(tvClasses).filter(([k]) => !(h.cavity_profile?.['8'] && (k === 'RK' || k === 'RS'))));
+  data.families.D38999.options.push({id: 'finish', label: 'Service class (material & finish)', kind: 'replace', regex: '^(TV0[16])(RW|RF|RK|RS|DN)(-\\d+-\\d+[PS])$', group: 2, values: tvClass, ...optionSources.tvClass,
+    help: 'Amphenol TV parts carry a two-letter service class instead of the MIL finish letter. Normal keying; ask Amphenol for alternate key positions.'});
   const keyOption = (src, help) => ({id: 'key', label: 'Key & housing color', kind: 'suffix', cavities: [8, 12], regex: '^DTM?0[46]-(?:08|12)[PS]$', values: () => deutschKeys, default: 'A', both: true, ...src, help});
   data.families.DT.options = [keyOption(optionSources.dtKeys, 'DT 8- and 12-position housings come in four keys, each molded in its own color. Plug and receptacle must use the same key. Use different keys on neighboring harnesses so they can’t be cross-connected.')];
   data.families.DTM.options = [keyOption(optionSources.dtmKeys, 'DTM 8- and 12-pin housings are color-coded to the key letter. Plug and receptacle must use the same key.')];

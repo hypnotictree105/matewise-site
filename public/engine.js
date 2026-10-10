@@ -183,7 +183,7 @@ export function buildBOM(option,s) {
   for(const end of endpoints(option,s)) {
     const {h,pn,label}=end;const fit=fitHousing(h,s.wires);if(!fit)throw Error('The selected assembly no longer fits these wires.');
     const opts=optionsForPart(pn,h),ordered=orderPart(pn,h,s.options);
-    add(label,1,h.ordering_incomplete?null:ordered,h.role?.endsWith('insert')?'Connector insert':'Connector housing',h.verification,h.ordering_candidate?'Inline receptacle ordering-code candidate. Confirm available insert arrangement, mating interface and accessories with Glenair before ordering.':h.reference_path?'Glenair ordering-code configuration: nickel finish, A98, normal keying; A/B suffixes specify no standard contacts. Check orderability and application requirements.':h.description?`${h.description}. Selected for the entered wire sizes. Crimp contacts are ordered separately. Other application requirements need review.`:'Selected for the entered wire sizes and mounting arrangement. Other application requirements need review.',h.source);
+    add(label,1,h.ordering_incomplete?null:ordered,h.role?.endsWith('insert')?'Connector insert':'Connector housing',h.verification,h.ordering_candidate?`${h.mount==='inline'&&h.role==='receptacle'?'In-line receptacle':h.role==='plug'?'Plug':'Connector'} ordering-code candidate built from the ${sourceOf(h)||'manufacturer'} catalog. Confirm available insert arrangement, mating interface and accessories with ${sourceOf(h)||'the manufacturer'} before ordering.`:h.reference_path?'Glenair ordering-code configuration: nickel finish, A98, normal keying; A/B suffixes specify no standard contacts. Check orderability and application requirements.':h.description?`${h.description}. Selected for the entered wire sizes. Crimp contacts are ordered separately. Other application requirements need review.`:'Selected for the entered wire sizes and mounting arrangement. Other application requirements need review.',h.source);
     lines.at(-1).source_url=h.source_url;
     lines.at(-1).manufacturer=sourceLabel(h);
     if(h.ordering_incomplete){lines.at(-1).designation=h.designation;lines.at(-1).reason=`${h.description}. ${data.families[h.family].ordering_note||'Complete the ordering code from the manufacturer catalog.'}`;}
@@ -248,6 +248,7 @@ export function buildBOM(option,s) {
         lines.at(-1).source_url=pick.source_url;if(pick.designation)lines.at(-1).designation=pick.designation;
       }else add(label,1,null,title,'unknown',fits.length&&angle==null&&want!=='boot-adapter'?`Choose a straight or 90° cable exit. Available: ${fits.map(b=>b.pn||b.designation).join(', ')}.`
         :want==='shield'&&h.family==='D38999'&&angle===90?'No 90° shield-termination backshell is recorded yet (straight and 45° are). Choose a documented shielding backshell.'
+        :h.ordering_candidate&&h.family==='D38999'?`No backshell is recorded for ${sourceOf(h)||'this manufacturer'}’s ${h.role} yet. The catalog only links AS85049 backshells to MIL part numbers. Ask ${sourceOf(h)||'the manufacturer'} which AS85049 or house backshell fits this shell.`
         :'Select a documented interface and cable-entry match. Current catalog has no validated match for these requirements.');
     }
     if(a.boot&&!viaShell)add(label,1,null,`Heat-shrink boot · ${a.exit==='right'?'90°':a.exit==='straight'?'straight':'exit to confirm'}`,'unknown',`Cable diameter: ${a[label==='End B'?'diameterB':'diameterA']||'not provided'} mm. Adapter diameter, boot geometry, material and adhesive compatibility must be established.`);
@@ -285,4 +286,72 @@ export function accessoryChecks(h,s,label='End A'){
   const base=problems.length===0;
   if(a.boot&&(a.bootMaterial!=='type1w1'||a.adhesive!=='precoat'))problems.push('Choose Type 1 elastomer with W1 adhesive to use the documented boot.');
   return {base,boot:base&&(!a.boot||(a.bootMaterial==='type1w1'&&a.adhesive==='precoat')),problems};
+}
+
+// Candidates as the page shows them: optionsFor plus the panel-mount style filter.
+export function candidatesFor(s){
+  return optionsFor(s).filter(o=>s.connection==='cables'||s.mount==='any'||!s.mount||s.scope==='existing'||o.h.mount===s.mount||data.families[o.h.family]?.shells);
+}
+
+// When nothing matches, says which requirement removed the last candidates, in plain words, and which nearby
+// requests do match. Every sentence is computed from catalog data; nothing is guessed.
+const mountName={flange:'flange receptacle','jam-nut':'jam-nut receptacle',inline:'in-line (cable) part',panel:'panel part',box:'box-mount part',insert:'insert'};
+const familyName=f=>({D38999:'D38999',DT:'DEUTSCH DT',DTM:'DEUTSCH DTM',DTP:'DEUTSCH DTP',HanE:'HARTING Han E',USBFTV:'Amphenol rugged USB'}[f]||f);
+const wireText=r=>r.kind==='coax'?`${r.count} × ${r.cable} coax`:r.kind==='data'?`${r.count} × ${data.data_links?.[r.protocol]?.label||'data'}`:`${r.count} × ${r.awg} AWG`;
+export function explainNoMatch(s){
+  const reasons=[],alternatives=[];
+  if(validateWires(s.wires))return {reasons:[validateWires(s.wires)],alternatives};
+  const other=s.wires.find(r=>r.kind==='data'&&!data.data_links?.[r.protocol]?.cavity);
+  if(other)return {reasons:['Ethernet, video and other high-speed links need twinax or quadrax contacts. Those aren’t in the catalog yet. USB 2.0 / 3.x and RG-316 / RG-180 coax are.'],alternatives};
+  const fams=s.family==='any'?Object.keys(data.families).filter(f=>data.families[f].in_compare!==false):[s.family,...Object.keys(data.families).filter(f=>(data.families[f].shown_with||[]).includes(s.family))];
+  const label=fams.length===1?familyName(fams[0]):s.family==='any'?'any family':familyName(s.family);
+  let pool=s.scope==='existing'?mates(s.existing):Object.entries(data.housings).filter(([,h])=>fams.includes(h.family));
+  if(s.scope==='existing'&&!pool.length)reasons.push(`No mating half for ${s.existing} is recorded in the catalog yet.`);
+  else if(!pool.length)reasons.push(`No ${label} parts are in the catalog yet.`);
+  else{
+    const fits=pool.filter(([,h])=>fitHousing(h,s.wires));
+    if(!fits.length){
+      // Per wire group: the most positions any one insert offers for it.
+      for(const r of s.wires){
+        const tok=wireToken(r);let best=0,bestPn='';
+        for(const [pn,h] of pool){const n=Object.entries(h.cavity_profile||{}).reduce((t,[size,c])=>t+(accepts(h,size,tok)?c:0),0);if(n>best){best=n;bestPn=pn;}}
+        if(best<Number(r.count))reasons.push(best?`${wireText(r)}: the most positions for this in one ${label} insert here is ${best} (${bestPn}).`:`${wireText(r)}: no ${label} contact in the catalog takes this ${r.kind==='coax'?'cable':r.kind==='data'?'link':'wire size'}.`);
+      }
+      if(!reasons.length)reasons.push(`No single ${label} insert here has the right mix of positions for all ${s.wires.reduce((n,r)=>n+Number(r.count),0)} of your wires together.`);
+    }else{
+      const spareOk=fits.filter(([,h])=>fitHousing(h,s.wires).spare>=Number(s.spare||0));
+      if(!spareOk.length){const most=Math.max(...fits.map(([,h])=>fitHousing(h,s.wires).spare));reasons.push(`You asked for at least ${s.spare} unused positions. The most any fitting ${label} insert leaves is ${most}.`);}
+      else if(s.scope==='existing')reasons.push('A mating half fits your wires, but not with the other requirements.');
+      else{
+        const roleOk=spareOk.filter(([,h])=>h.role===(data.families[h.family]?.end_a_role||'receptacle'));
+        const shells=f=>data.families[f]?.shells;
+        const mountOk=roleOk.filter(([,h])=>shells(h.family)||(s.connection==='cables'?h.mount==='inline':['flange','panel','jam-nut','box'].includes(h.mount)&&(s.mount==='any'||!s.mount||h.mount===s.mount)));
+        const have=[...new Set(spareOk.map(([,h])=>mountName[h.mount]||h.mount))].join(', ');
+        if(!mountOk.length){
+          if(s.connection==='cables')reasons.push(`Cable to cable needs an in-line receptacle on one cable. The ${label} parts that fit your wires here are: ${have}.${fams.includes('D38999')?' MIL-DTL-38999 Series III has no military in-line receptacle; in-line receptacles are manufacturer parts.':''}`);
+          else if(s.mount&&s.mount!=='any')reasons.push(`No ${label} ${mountName[s.mount]||s.mount} fits your wires. The ${label} parts that do fit come as: ${have}.`);
+          else reasons.push(`No panel-mount ${label} part fits your wires. The ones that fit come as: ${have}.`);
+        }else{
+          // Halves exist, but no mating half from the same manufacturer (or the mate does not fit / mount).
+          const examples=[];
+          const bySpare=[...mountOk].sort((x,y)=>fitHousing(x[1],s.wires).spare-fitHousing(y[1],s.wires).spare);
+          for(const [pn,h] of bySpare){
+            const any=Object.entries(data.housings).filter(([o,m])=>o!==pn&&m.family===h.family&&m.role!==h.role&&m.gender!==h.gender&&(data.families[h.family].match_on||[]).every(k=>m[k]===h[k])&&fitHousing(m,s.wires)&&(s.connection!=='cables'||m.mount==='inline'||shells(h.family)));
+            if(any.length){examples.push([pn,h,any[0]]);break;}
+          }
+          const maker=h=>sourceOf(h)||'a MIL-spec part number with no manufacturer named';
+          if(examples.length&&sourceOf(examples[0][1])!==sourceOf(examples[0][2][1])){const [pn,h,[mpn,m]]=examples[0];reasons.push(`${sourceOf(h)||'Only MIL-spec part numbers'} ${sourceOf(h)?'makes':'cover'} the ${h.role} that fits (for example ${pn}), but the only mating ${m.role} recorded is ${mpn}, ${sourceOf(m)?'made by '+sourceOf(m):maker(m)}. MateWise only pairs halves from one manufacturer, so it won’t mix them. A ${sourceOf(h)||'matching'} ${m.role} isn’t in the catalog yet.`);}
+          else reasons.push(`A ${label} ${roleOk[0]?.[1].role||'half'} fits, but no mating half that fits your wires and mounting is recorded yet.`);
+        }
+      }
+    }
+  }
+  const tryPatch=(patch,text)=>{const n=candidatesFor({...s,...patch}).length;if(n)alternatives.push({label:text,patch,count:n});};
+  if(s.scope!=='existing'){
+    tryPatch({connection:s.connection==='cables'?'panel':'cables',mount:'any'},s.connection==='cables'?'Cable → panel instead':'Cable → cable instead');
+    if(s.connection==='panel'&&s.mount&&s.mount!=='any')tryPatch({mount:'any'},'Any panel mount style');
+    if(s.family!=='any')tryPatch({family:'any'},'Compare all families');
+  }
+  if(Number(s.spare)>0)tryPatch({spare:0},'No spare positions');
+  return {reasons,alternatives};
 }

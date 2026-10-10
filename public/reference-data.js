@@ -27,6 +27,19 @@ export function extendCatalog(data){
     const inline=`233-105-05NF${shells[h.shell_size]}-${arrangement}SN`;
     data.housings[inline]={...h,mount:'inline',shell_type:'05',manufacturer:'Glenair',verification:'inferred',ordering_candidate:true,source:'Glenair 233-105-05, pp. D-16–D-17. Ordering-code candidate; factory must confirm insert availability. Existing layout data retained.',source_url:'https://www.glenair.com/mil-dtl-38999/series-i-ii-and-iii-environmental-class-connectors/pdf/233-105-05.pdf'};
   }
+  // Amphenol Tri-Start (TV): Amphenol's own Series III line, with its own line (in-line) receptacle, shell style 01,
+  // and straight plug, style 06. Both halves come from Amphenol, so a cable-to-cable pair stays one manufacturer.
+  // Built from the ordering code (p. 43); Amphenol's insert availability per shell size was not checked.
+  const tvSource='Amphenol Aerospace Tri-Start (TV) catalog, p. 43 ordering information: TV, shell style 01 line receptacle / 06 straight plug, service class, shell size 9-25, MIL-STD-1560 insert, P/S. Ordering-code candidate; confirm insert availability with Amphenol.';
+  const tvUrl='https://docs.rs-online.com/4793/0900766b814b5158.pdf';
+  for(const [pn,h] of Object.entries(data.housings)){
+    if(!pn.startsWith('D38999/24W')||!h.cavity_profile||!shells[h.shell_size])continue;
+    const arrangement=h.insert_arrangement.replace(/^[A-HJ]/,'');
+    const tv={...h,shell_type:undefined,manufacturer:'Amphenol Aerospace',verification:'inferred',ordering_candidate:true,tv:true,mount:'inline',source:tvSource,source_url:tvUrl};
+    delete tv.shell_type;delete tv.arrangement_source;
+    data.housings[`TV01RW-${shells[h.shell_size]}-${arrangement}S`]={...tv,role:'receptacle',gender:'socket',description:`Amphenol TV line (in-line) receptacle, shell ${shells[h.shell_size]}, insert ${shells[h.shell_size]}-${arrangement}, sockets`};
+    data.housings[`TV06RW-${shells[h.shell_size]}-${arrangement}P`]={...tv,role:'plug',gender:'pin',description:`Amphenol TV straight plug, shell ${shells[h.shell_size]}, insert ${shells[h.shell_size]}-${arrangement}, pins`};
+  }
   const common={family:'D38999',series:'III',shell_size:'A',insert_arrangement:'A98',keying:'N',termination:'crimp',cavity_profile:{'20':3},manufacturer:'Glenair',finish:'F',contacts_supplied:false,accessory_path:referenceId,reference_path:referenceId,verification_basis:'Manufacturer ordering-code configuration; stock / individual SKU listing not checked.'};
   data.housings[referenceParts.receptacle]={...common,...checked(sources.receptacle,'p. 28, ordering table; arrangement p. 4'),shell_type:'24',role:'receptacle',gender:'socket',mount:'jam-nut',panel_nut:referenceParts.nut};
   data.housings[referenceParts.plug]={...common,...checked(sources.plug,'p. 26, ordering table; arrangement p. 4'),shell_type:'26',role:'plug',gender:'pin',mount:'inline'};
