@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex, nofollow"><meta name="theme-color" content="#151b1b"><title>MateWise · Usage</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600&display=swap');
+:root{--ink:#172121;--text:#263232;--muted:#64716c;--line:#dbe1dc;--surface:#fff;--page:#f3f5f3;--bar:#305542;--track:#e8ece8;--lime:#c6f368}
+*{box-sizing:border-box}body{margin:0;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--page)}
+header{background:var(--ink);color:#fff;padding:18px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+header a{color:#fff;text-decoration:none;font:600 22px 'Space Grotesk',sans-serif}header a span{color:var(--lime)}
+main{max-width:1080px;margin:0 auto;padding:24px 16px 48px}h1,h2{font-family:'Space Grotesk',sans-serif;color:var(--ink);margin:0}h1{font-size:28px}h2{font-size:18px;margin-bottom:12px}
+.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}select,input,button{font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--text)}button{background:var(--ink);color:#fff;border-color:var(--ink);cursor:pointer}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;margin-top:16px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:16px}.tile{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}.tile b{display:block;font:600 28px 'Space Grotesk',sans-serif;color:var(--ink)}.tile span{color:var(--muted);font-size:14px}
+.funnel{display:grid;grid-template-columns:minmax(120px,190px) 1fr 64px 76px;gap:6px 12px;align-items:center;font-size:14px}.funnel .head{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.track{background:var(--track);border-radius:4px;height:18px;position:relative}.fill{background:var(--bar);height:100%;border-radius:0 4px 4px 0}.track:hover .fill{filter:brightness(1.25)}
+.num{text-align:right;font-variant-numeric:tabular-nums}.left{color:var(--muted)}.sep{grid-column:1/-1;border-top:1px solid var(--line);margin:6px 0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}th.n{text-align:right}th{color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}td.n{text-align:right;font-variant-numeric:tabular-nums}
+.scroll{overflow-x:auto}.note{color:var(--muted);font-size:13px;margin-top:10px}.err{color:#a3361f;margin-top:12px}.hidden{display:none}
+@media (max-width:560px){.funnel{grid-template-columns:96px 1fr 34px 40px;gap:6px 8px;font-size:13px}.funnel .head{font-size:10px}}
+</style></head>
+<body>
+<header><a href="/">matewise<span>.</span> usage</a><div class="controls" id="controls"><select id="days" aria-label="Time range"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option><option value="365">Last 365 days</option></select><button id="lock" type="button">Lock</button></div></header>
+<main>
+<form id="login" class="card"><h1>Usage stats</h1><p class="note">Enter the stats key you saved as STATS_KEY in Cloudflare. It's remembered in this browser only.</p><div class="controls" style="margin-top:12px"><input id="key" type="password" autocomplete="current-password" placeholder="Stats key" aria-label="Stats key" required><button type="submit">Show stats</button></div><p class="err" id="error" role="alert"></p></form>
+<div id="report" class="hidden"></div>
+</main>
+<script type="module" src="./stats.js"></script>
+</body></html>

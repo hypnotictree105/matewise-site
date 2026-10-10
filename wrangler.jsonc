@@ -13,6 +13,10 @@
       {
         "name": "MOUSER_QUOTA",
         "class_name": "MouserQuota"
+      },
+      {
+        "name": "ANALYTICS",
+        "class_name": "FunnelStats"
       }
     ]
   },
@@ -21,6 +25,12 @@
       "tag": "v1",
       "new_sqlite_classes": [
         "MouserQuota"
+      ]
+    },
+    {
+      "tag": "v2",
+      "new_sqlite_classes": [
+        "FunnelStats"
       ]
     }
   ],

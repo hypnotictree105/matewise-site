@@ -70,6 +70,52 @@ API reference: https://api.mouser.com/api/docs/v1 (official Swagger, retrieved 2
 
 Set MOUSER_API_KEY in .env for local development and as a Cloudflare secret for production. Never commit it. The worker embeds only public assets. Production uses a shared SQLite Durable Object that limits Mouser requests to 25 per rolling minute and 900 per rolling 24 hours; if that storage is missing or unavailable, lookups fail closed. Requests from other apps sharing the same key are outside this counter. Provider timeouts/errors are sanitized; there is no server-side data cache.
 
+## Ordering options and face diagrams
+
+Step 6 shows each half's mating face as a schematic SVG drawn from catalog data (contact count and size mix; DEUTSCH cavity rows), and lets people pick options that change the orderable part number:
+
+- D38999: material & finish letter and keying position (N, A–E), from d38999.federalconnectors.com. Hermetic finish codes are only offered on hermetic shells. Glenair ordering codes and the source-checked reference keep their fixed options.
+- DEUTSCH DT/DTM 8- and 12-position: key A (gray), B (black), C (green), D (brown), from TE's DT brochure and drawing DT06-12SX. Both halves always get the same key.
+
+Options are declared per family in `public/options-data.js` and applied generically by `orderPart()` in the engine. The diagrams are schematic: they don't show exact contact positions or cavity numbers; the D38999 panel links to the MIL-STD-1560 chart for the exact layout.
+
+## Backshells
+
+Step 6 also draws the cable end from the side (schematic) and lists every rear accessory recorded for the selected connector, highlighting the one that goes in the BOM. Data lives in `public/backshell-data.js`:
+
+- TE DEUTSCH DT, 2–12 positions: straight and 90° backshells for plugs (DT06) and receptacles (DT04), plus strain-relief versions for 2–6 positions, from TE's DT brochure (rev 08-25). The strain-relief version is chosen when the cable is jacketed.
+- D38999 Series III: AS85049 /38 (straight strain relief), /39 (90° strain relief), /88 (straight EMI/RFI), /89 (45° EMI/RFI) and /69 (heat-shrink boot adapter) per shell size. These stay open BOM lines showing the designation (e.g. M85049/38-17) until a finish letter and self-locking/clamp options are modeled.
+
+## HARTING Han E (preview)
+
+`public/harting-data.js` adds the first HARTING family: Han E crimp inserts with 6, 10, 16 and 24 contacts (male 09 33 0xx 2602, female 09 33 0xx 2702; sizes 6B–24B; 16 A / 500 V; 0.14–4 mm²) and the silver-plated Han E crimp contacts by wire size. Each half is a male or female insert plus contacts; the BOM adds a hood or housing line of the matching Han B size (bulkhead/surface housing or coupler on End A, hood on End B) and a cable-gland line, both open until hoods and housings are modeled. Han E is only offered when chosen explicitly (`in_compare: false`) until then.
+
+The engine hooks are generic family flags: `end_a_role`, `in_compare`, `shells`, `unused_cavity_seals`, `layouts`.
+
+## Coax and USB (head start)
+
+`public/highspeed-data.js`:
+
+- Coax in D38999 Series III: wire groups of kind "Coax / RF" pick a cable. RG-316 goes in size 12 cavities with M39029/102-558 (pin) / M39029/103-559 (socket); RG-180 in size 8 cavities with M39029/60-367 / M39029/59-366 (Glenair RF contacts catalog). Size 8 layouts 21-75 (G75, 4 × #8) and 25-8 (J8, 8 × #8) were added as /20, /24 and /26 housings.
+- USB: a "USB / high-speed data" group with USB 2.0 or USB 3.x maps to Amphenol Socapex USBFTV / USB3FTV rugged USB-A connectors (38999 Series III style, shell 15, IP68 mated): square-flange (2) or jam-nut (7) receptacle with a plug (6). One USB port per connection. The ordering code (coding, back termination, plating, nut) is left to complete from the Amphenol catalog, so those lines stay open.
+- Ethernet, video and other links still say "needs more data": they need twinax/quadrax contacts, not modeled yet.
+
+## Reference sizes
+
+`public/dimension-data.js` holds sourced reference dimensions, shown on step 6 and in the BOM (reference only, not a fit approval):
+
+- DT plug (DT06) and receptacle (DT04) overall length, width and height for 2–12 positions, from TE's DT brochure "DT Series Dimensions". The 8- and 12-position rows are marked inferred: the source text runs those values together, so confirm them on the TE drawing.
+- Wire insulation range the rear seal is made for: DT 2.23–3.68 mm (E-seal versions 1.35–3.05 mm); DTP 3.40–4.32 mm.
+- The D38999 size-9 reference path's adapter thread, boot and nut sizes (Glenair drawings).
+
+DEUTSCH face drawings use the true width-to-height ratio when TE dimensions exist, with labeled width and height. Panel cutouts, backshell lengths and D38999 shell dimensions are not in the catalog yet.
+
+## Usage analytics
+
+The site records anonymous funnel events so we can see where people stop and which connectors they ask for. Each browser tab gets a random visit ID (kept in sessionStorage, no cookie). We store the furthest step reached, the last step before leaving, whether a BOM was built, downloaded, printed or stock-checked, and for built BOMs the request (family, wire counts and sizes, mounting, build quantity, housing part numbers). No names, emails, IP addresses or free text. Browsers with Do Not Track or Global Privacy Control are not tracked. Visits older than 180 days are deleted.
+
+Code: `public/track.js` (browser), `server/analytics.js` (storage and validation). View it at `/stats` with the `STATS_KEY` secret.
+
 ## Deployment
 
 See [DEPLOYMENT.md](DEPLOYMENT.md).

@@ -26,6 +26,10 @@ You can also run a deploy by hand from the Actions tab ("Run workflow"), or loca
 
 A SQLite Durable Object limits this site's Mouser calls to 25 per rolling minute and 900 per rolling 24 hours. Other applications using the same key are outside this counter. Missing or unavailable quota storage fails closed.
 
+## Stats key
+
+`/stats` shows the usage funnel. It needs a `STATS_KEY` Worker secret (any long password you choose): Cloudflare dashboard → Workers & Pages → matewise → Settings → Variables and Secrets → Add → type Secret, name `STATS_KEY`. Or run `npx wrangler secret put STATS_KEY`. Without it, events are still recorded but `/stats` says it isn't configured.
+
 ## History
 
 - 2026-09-26: first Cloudflare deployment, uploaded through Cloudflare's module-upload API. Verified: homepage 200, API health configured, live DT04-4P lookup returned an exact MPN match with stock and pricing.
