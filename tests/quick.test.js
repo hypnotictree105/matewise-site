@@ -29,3 +29,14 @@ test('events keep the guided/quick path and the funnel counts guided visits only
   assert.equal(r.reached[0], 2);
   assert.equal(r.reached[6], 1);
 });
+
+test('a looked-up part gets one wire per position so it shows a full result', async () => {
+  const {fillWires, candidatesFor} = await import('../public/engine.js');
+  for (const typed of ['DT04-12PC', 'DTM06-4S', 'D38999/24WG75SN', 'D38999/20WJ4SN', '09330102702', 'USB3FTV7']) {
+    const hit = resolvePart(typed), wires = fillWires(hit.h);
+    assert.ok(wires, typed);
+    assert.equal(wires.reduce((n, w) => n + w.count, 0), Object.values(hit.h.cavity_profile).reduce((a, b) => a + b, 0), typed);
+    const s = {scope: 'existing', existing: hit.pn, family: hit.h.family, connection: 'panel', mount: 'any', builds: 1, spare: 0, options: hit.choices, wires, accessories: {}};
+    assert.ok(candidatesFor(s).length > 0, typed + ' has a mate');
+  }
+});

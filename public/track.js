@@ -1,7 +1,9 @@
 // Anonymous usage beacons. A random ID per browser tab (no cookie) ties one visit's steps together.
 // Browsers that send Do Not Track or Global Privacy Control are never tracked.
 let sid = null;
-const optedOut = () => navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true;
+// The owner can exclude their own browser from /stats ("Don't count this browser").
+const excluded = () => { try { return localStorage.getItem('mw-no-track') === '1'; } catch { return false; } };
+const optedOut = () => navigator.doNotTrack === '1' || window.doNotTrack === '1' || navigator.globalPrivacyControl === true || excluded();
 function visitId() {
   if (sid) return sid;
   try { sid = sessionStorage.getItem('mw-visit'); } catch {}

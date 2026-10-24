@@ -46,4 +46,9 @@ function render(d) {
 $('login').addEventListener('submit', e => { e.preventDefault(); key = $('key').value.trim(); store.set(key); load(); });
 $('days').addEventListener('change', load);
 $('lock').addEventListener('click', () => { key = ''; store.set(''); $('key').value = ''; showLogin(''); });
+// Visits from this browser are not counted while the flag is set (public/track.js checks it).
+const self = {get() { try { return localStorage.getItem('mw-no-track') === '1'; } catch { return false; } }, set(on) { try { on ? localStorage.setItem('mw-no-track', '1') : localStorage.removeItem('mw-no-track'); } catch {} }};
+function showSelf() { const on = self.get(); $('self').textContent = on ? 'This browser isn’t counted ✓' : 'Don’t count this browser'; $('self').title = on ? 'Click to count this browser again' : 'Stop counting your own visits to usematewise.com from this browser'; }
+$('self').addEventListener('click', () => { self.set(!self.get()); showSelf(); });
+showSelf();
 if (key) load(); else showLogin('');

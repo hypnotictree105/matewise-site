@@ -355,3 +355,17 @@ export function explainNoMatch(s){
   if(Number(s.spare)>0)tryPatch({spare:0},'No spare positions');
   return {reasons,alternatives};
 }
+
+// One wire per position for a housing, so a looked-up part shows a full result before the person enters real wires.
+// Uses the largest wire each contact size takes; size 8 gets RG-180 coax and USB ports get their USB link.
+export function fillWires(h){
+  const rows=[];
+  for(const [size,n] of Object.entries(h?.cavity_profile||{})){
+    const range=data.contact_sizes[size]?.awg_range;
+    if(range)rows.push({count:n,awg:range[0],kind:'power',current:'',voltage:''});
+    else if(size==='8'&&data.coax_cables?.['RG-180'])rows.push({count:n,awg:16,kind:'coax',cable:'RG-180',current:'',voltage:''});
+    else if(size==='USB3'||size==='USB2')rows.push({count:1,awg:16,kind:'data',protocol:size==='USB3'?'USB 3.x':'USB 2.0',current:'',voltage:''});
+    else return null;
+  }
+  return rows.length&&fitHousing(h,rows)?rows:null;
+}

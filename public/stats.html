@@ -17,9 +17,10 @@ main{max-width:1080px;margin:0 auto;padding:24px 16px 48px}h1,h2{font-family:sys
 table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:7px 6px;border-bottom:1px solid var(--line);vertical-align:top}th.n{text-align:right}th{color:var(--muted);font-weight:500;font-size:12px;text-transform:uppercase;letter-spacing:.06em}td.n{text-align:right;font-variant-numeric:tabular-nums}
 .scroll{overflow-x:auto}.note{color:var(--muted);font-size:13px;margin-top:10px}.err{color:#a3361f;margin-top:12px}.hidden{display:none}
 @media (max-width:560px){.funnel{grid-template-columns:96px 1fr 34px 40px;gap:6px 8px;font-size:13px}.funnel .head{font-size:10px}}
+button.ghost{background:#fff;color:#25292c;border-color:#c9cdd0}
 </style></head>
 <body>
-<header><a href="/">matewise<span>.</span> usage</a><div class="controls" id="controls"><select id="days" aria-label="Time range"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option><option value="365">Last 365 days</option></select><button id="lock" type="button">Lock</button></div></header>
+<header><a href="/">matewise<span>.</span> usage</a><div class="controls" id="controls"><select id="days" aria-label="Time range"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option><option value="365">Last 365 days</option></select><button type="button" id="self" class="ghost"></button><button id="lock" type="button">Lock</button></div></header>
 <main>
 <form id="login" class="card"><h1>Usage stats</h1><p class="note">Enter the stats key you saved as STATS_KEY in Cloudflare. It's remembered in this browser only.</p><div class="controls" style="margin-top:12px"><input id="key" type="password" autocomplete="current-password" placeholder="Stats key" aria-label="Stats key" required><button type="submit">Show stats</button></div><p class="err" id="error" role="alert"></p></form>
 <div id="report" class="hidden"></div>

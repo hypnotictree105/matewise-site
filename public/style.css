@@ -35,3 +35,5 @@ body.quick .summary{display:none}body.quick .workspace{grid-template-columns:245
 @media(min-width:1450px){body.quick .workspace{grid-template-columns:270px minmax(350px,1fr)}}
 @media(max-width:740px){body.quick .workspace{display:block}}
 .quick-intro{margin-top:0}@media(max-width:740px){body.quick .rail{display:none}}
+.hero-lookup{border:2px solid var(--olive);background:var(--olive-tint);padding:14px 16px;margin:0 0 26px}.hero-lookup .field{font-size:15px;font-weight:700;color:#25292c}.hero-lookup .q-row{display:flex;gap:8px;margin-top:8px}.hero-lookup input{flex:1;min-width:0;min-height:42px;padding:8px 10px;border:1px solid #b9bdc0;font-family:var(--mono);font-size:15px}.hero-lookup .primary{min-height:42px;padding:8px 16px}
+@media(max-width:740px){.hero-lookup .q-row{flex-wrap:wrap}.hero-lookup .primary{width:100%}}
